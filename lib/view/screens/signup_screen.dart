@@ -26,16 +26,8 @@ class _SignInScreenState extends State<SignInScreen> {
               SvgPicture.asset("assets/logo.svg"),
               CustomTextformffield(hint: "Email", label: "Email"),
               CustomTextformffield(hint: "Full Name", label: "Full Name"),
-              CustomTextformffield(hint: "Password", label: "Password",icon: IconButton(onPressed: (){
-                setState(() {
-                  isShown = !isShown;
-                });
-              }, icon: Icon(isShown?Icons.vaccines_outlined:Icons.remove_red_eye_outlined))),
-              CustomTextformffield(hint: "Confirm Password", label: "Confirm Password",icon: IconButton(onPressed: (){
-                setState(() {
-                  isShown = !isShown;
-                });
-              }, icon: Icon(isShown?Icons.vaccines_outlined:Icons.remove_red_eye_outlined))),
+              CustomTextformffield(hint: "Password", label: "Password"),
+              CustomTextformffield(hint: "Confirm Password", label: "Confirm Password"),
               CustomButton(press: (){}, text: "SIGN UP"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

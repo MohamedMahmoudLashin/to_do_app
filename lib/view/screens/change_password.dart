@@ -24,16 +24,8 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             children: [
               SvgPicture.asset("assets/logo.svg"),
-              CustomTextformffield(hint: "Password", label: "Password",icon: IconButton(onPressed: (){
-                setState(() {
-                  isShown = !isShown;
-                });
-              }, icon: Icon(isShown?Icons.vaccines_outlined:Icons.remove_red_eye_outlined))),
-              CustomTextformffield(hint: "Confirm Password", label: "Confirm Password",icon: IconButton(onPressed: (){
-                setState(() {
-                  isShown = !isShown;
-                });
-              }, icon: Icon(isShown?Icons.vaccines_outlined:Icons.remove_red_eye_outlined))),
+              CustomTextformffield(hint: "Password", label: "Password"),
+              CustomTextformffield(hint: "Confirm Password", label: "Confirm Password"),
               CustomButton(press: (){}, text: "CHANGE PASSWORD"),
             ],
           ),

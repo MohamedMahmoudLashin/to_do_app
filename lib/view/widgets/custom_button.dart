@@ -11,16 +11,14 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 48,
-        decoration: BoxDecoration(
-          color: AppColor.kPurple,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child:TextButton(onPressed: (){},
-            child: Text(text,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kWhite),)) ,
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        color: AppColor.kPurple,
+        borderRadius: BorderRadius.circular(12),
       ),
+      child:TextButton(onPressed: (){},
+          child: Text(text,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kWhite),)) ,
     );
   }
 }

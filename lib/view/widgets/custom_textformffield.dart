@@ -8,17 +8,21 @@ class CustomTextformffield extends StatelessWidget {
     this.controller,
     required this.hint,
     required this.label,
-    this.icon,
+    // this.icon,
+    this.obscureText = true,
+
   });
 
   final TextEditingController? controller;
   final String hint;
   final String label;
-  final IconButton? icon;
+  // final IconButton? icon;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText,
       inputFormatters: [
         FilteringTextInputFormatter.deny(RegExp(r'\s'))
       ],
@@ -26,7 +30,7 @@ class CustomTextformffield extends StatelessWidget {
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColor.kWhite1,
+            color: AppColor.kBlack,
             width:1
           ),
           borderRadius: BorderRadius.circular(12)
@@ -35,10 +39,10 @@ class CustomTextformffield extends StatelessWidget {
             borderRadius: BorderRadius.circular(12)
         ),
         hintText: hint,
-        hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kWhite1),
+        hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
         labelText: label,
-        labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kWhite1),
-        suffixIcon: icon
+        labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
+        suffixIcon:  obscureText!? Icon(Icons.visibility_off):null
       ),
     );
   }
