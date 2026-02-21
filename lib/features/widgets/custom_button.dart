@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 
+import '../../core/responsive/responsive_extension.dart';
+
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key,
     required this.press,
@@ -12,7 +14,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48,
+      height: 55.h,
+      width: 400.h,
       decoration: BoxDecoration(
         color: AppColor.kPurple,
         borderRadius: BorderRadius.circular(12),

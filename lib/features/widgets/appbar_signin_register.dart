@@ -18,11 +18,14 @@ class AppbarSigninRegister extends StatelessWidget implements PreferredSizeWidge
               context.setLocale(Locale('ar'));
             }
           },
-          child: Row(
-            children: [
-              Text("locale".tr(),style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kPurple,),),
-              Icon(Icons.arrow_forward_ios,color: AppColor.kPurple,)
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Row(
+              children: [
+                Text("locale".tr(),style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kPurple,),),
+                Icon(Icons.arrow_forward_ios_rounded,color: AppColor.kPurple,)
+              ],
+            ),
           ),
         ),
       ],
