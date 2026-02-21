@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:to_do_app/view/widgets/custom_button.dart';
-import 'package:to_do_app/view/widgets/custom_textformffield.dart';
-
 import '../../core/theme/app_color.dart';
 import '../widgets/appbar_signin_register.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_textformffield.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

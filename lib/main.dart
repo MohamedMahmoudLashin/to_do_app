@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/view/screens/signin_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import 'features/ui_screens/change_password.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:to_do_app/view/widgets/custom_button.dart';
-import 'package:to_do_app/view/widgets/custom_textformffield.dart';
-
 import '../../core/theme/app_color.dart';
 import '../widgets/appbar_signin_register.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_textformffield.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -24,18 +23,9 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             children: [
               SvgPicture.asset("assets/logo.svg"),
-              CustomTextformffield(hint: "Email", label: "Email"),
-              CustomTextformffield(hint: "Full Name", label: "Full Name"),
               CustomTextformffield(hint: "Password", label: "Password"),
               CustomTextformffield(hint: "Confirm Password", label: "Confirm Password"),
-              CustomButton(press: (){}, text: "SIGN UP"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Have an account?",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,color: AppColor.kWhite1),),
-                  TextButton(onPressed: (){}, child:Text("Sign in",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,color: AppColor.kPurple),))
-                ],
-              ),
+              CustomButton(press: (){}, text: "CHANGE PASSWORD"),
             ],
           ),
         )
