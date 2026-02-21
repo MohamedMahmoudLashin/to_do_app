@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/core/app_color.dart';
+import 'package:to_do_app/core/theme/app_color.dart';
 
 class AppbarSigninRegister extends StatelessWidget implements PreferredSizeWidget {
   const AppbarSigninRegister({super.key});

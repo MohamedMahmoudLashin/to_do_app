@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_do_app/core/app_color.dart';
+import 'package:to_do_app/core/theme/app_color.dart';
 
 class CustomTextformffield extends StatelessWidget {
   const CustomTextformffield({
@@ -9,7 +9,7 @@ class CustomTextformffield extends StatelessWidget {
     required this.hint,
     required this.label,
     // this.icon,
-    this.obscureText = true,
+    this.obscureText = false,
 
   });
 
@@ -42,8 +42,9 @@ class CustomTextformffield extends StatelessWidget {
         hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
         labelText: label,
         labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
-        suffixIcon:  obscureText!? Icon(Icons.visibility_off):null
-      ),
+        suffixIcon: obscureText == true
+            ? const Icon(Icons.visibility_off)
+            : null,      ),
     );
   }
 }

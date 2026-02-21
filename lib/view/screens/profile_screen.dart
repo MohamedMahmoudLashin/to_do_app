@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:to_do_app/core/app_color.dart';
+import 'package:to_do_app/core/theme/app_color.dart';
 import 'package:to_do_app/view/widgets/custom_profile_row.dart';
 
 class ProfileScreen extends StatelessWidget {

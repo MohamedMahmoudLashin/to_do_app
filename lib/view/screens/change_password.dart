@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/view/widgets/custom_button.dart';
 import 'package:to_do_app/view/widgets/custom_textformffield.dart';
 
-import '../../core/app_color.dart';
+import '../../core/theme/app_color.dart';
 import '../widgets/appbar_signin_register.dart';
 
 class SignInScreen extends StatefulWidget {
