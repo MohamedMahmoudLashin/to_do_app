@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_color.dart';
@@ -23,9 +24,9 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             children: [
               SvgPicture.asset("assets/logo.svg"),
-              CustomTextformffield(hint: "Password", label: "Password"),
-              CustomTextformffield(hint: "Confirm Password", label: "Confirm Password"),
-              CustomButton(press: (){}, text: "CHANGE PASSWORD"),
+              CustomTextformffield(hint: "password".tr(), label: "password".tr()),
+              CustomTextformffield(hint: "confPass".tr(), label:"confPass".tr() ),
+              CustomButton(press: (){}, text: "changePass".tr()),
             ],
           ),
         )

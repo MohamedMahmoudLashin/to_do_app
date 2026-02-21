@@ -1,3 +1,14 @@
 {
-  "login": "تسجيل الدخول"
+  "locale": "Ar",
+  "name": "الاسم",
+  "email": "الايميل",
+  "password": "كلمة المرور",
+  "fullName": "الاسم الكامل",
+  "confPass": "تأكيد كلمة المرور",
+  "signIn": "تسجيل الدخول",
+  "SignUp": "إنشاء حساب",
+  "forgPass": "هل نسيت كلمة المرور؟",
+  "haveAnAccount": "لديك حساب؟",
+  "dontHaveAnAccount": "ليس لديك حساب؟",
+  "changePass": "تغيير كلمة المرور"
 }

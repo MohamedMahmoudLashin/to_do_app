@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import '../ui_screens/change_password.dart';
+import '../ui_screens/signup_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 3)).then((value){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInScreen()),result: (_)=>false);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()),result: (_)=>false);
     });
   }
   @override

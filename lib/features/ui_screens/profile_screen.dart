@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
@@ -16,9 +17,9 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
           SvgPicture.asset("assets/rafiki.svg"),
-          CustomProfileRow(title: "Name",press: (){},),
+          CustomProfileRow(title: "name".tr(),press: (){},),
           CustomProfileRow(title: "Change Email",press: (){},),
-          CustomProfileRow(title: "Change Password",press: (){},),
+          CustomProfileRow(title: "changePass".tr(),press: (){},),
           CustomProfileRow(title: "Change Language",press: (){},),
           TextButton(onPressed: (){}, child: Text("Log Out",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),))
         ],

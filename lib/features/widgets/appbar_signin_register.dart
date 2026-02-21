@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 
@@ -8,10 +9,22 @@ class AppbarSigninRegister extends StatelessWidget implements PreferredSizeWidge
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColor.kWhite,
-      title: Text("Eng",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kPurple,),),
       actions: [
-        IconButton(onPressed: (){},
-            icon:Icon(Icons.arrow_forward_ios,color: AppColor.kPurple,) )
+        GestureDetector(
+          onTap: (){
+            if (context.locale == Locale('ar')){
+              context.setLocale(Locale('en'));
+            }else{
+              context.setLocale(Locale('ar'));
+            }
+          },
+          child: Row(
+            children: [
+              Text("locale".tr(),style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: AppColor.kPurple,),),
+              Icon(Icons.arrow_forward_ios,color: AppColor.kPurple,)
+            ],
+          ),
+        ),
       ],
     );
   }

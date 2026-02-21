@@ -1,3 +1,14 @@
 {
-  "login": "Login"
+  "locale": "En",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "fullName": "Full Name",
+  "confPass": "Confirm Password",
+  "signIn": "Sign In",
+  "SignUp": "Sign Up",
+  "forgPass": "Forgot Password?",
+  "haveAnAccount": "Have an account?",
+  "dontHaveAnAccount": "Don't have an account?",
+  "changePass": "Change Password"
 }
