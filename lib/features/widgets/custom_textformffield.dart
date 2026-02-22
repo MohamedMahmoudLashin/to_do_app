@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 
+import '../../core/responsive/responsive_extension.dart';
+
 class CustomTextformffield extends StatelessWidget {
   const CustomTextformffield({
     super.key,
@@ -30,7 +32,7 @@ class CustomTextformffield extends StatelessWidget {
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColor.kBlack,
+            color: AppColor.kGrey,
             width:1
           ),
           borderRadius: BorderRadius.circular(12)
@@ -39,11 +41,11 @@ class CustomTextformffield extends StatelessWidget {
             borderRadius: BorderRadius.circular(12)
         ),
         hintText: hint,
-        hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
+        hintStyle: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),
         labelText: label,
-        labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: AppColor.kBlack),
+        labelStyle: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),
         suffixIcon: obscureText == true
-            ? const Icon(Icons.visibility_off)
+            ? const Icon(Icons.visibility_off,color: AppColor.kGrey,)
             : null,      ),
     );
   }
