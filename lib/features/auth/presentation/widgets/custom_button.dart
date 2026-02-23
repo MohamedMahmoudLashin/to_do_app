@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-
-import '../../core/responsive/responsive_extension.dart';
+import '../../../../core/responsive/responsive_extension.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key,
