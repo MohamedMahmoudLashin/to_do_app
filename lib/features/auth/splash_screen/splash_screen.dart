@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
@@ -18,9 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 3)).then((value){
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(
-          builder: (context)=>SignUpScreen()),result: (_)=>false);
+      FirebaseAuth.instance.currentUser == null ?
+          Navigator.of(context).pushReplacementNamed("signup")
+          :Navigator.of(context).pushReplacementNamed("home");
     });
   }
   @override

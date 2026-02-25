@@ -37,7 +37,9 @@ class _SignInScreenState extends State<SignInScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: (){}, child:Text("forgPass".tr(),style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),))
+                  TextButton(onPressed: (){
+                    Navigator.of(context).pushNamed("changepassword");
+                  }, child:Text("forgPass".tr(),style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),))
                 ],
               ),
               SizedBox(height: 5.h),
@@ -48,9 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Text("dontHaveAnAccount".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),),
                   TextButton(onPressed: (){
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context)=>ChangePassword())
-                    );
+                   Navigator.of(context).pushReplacementNamed("signup");
                   }, child:Text("SignUp".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kPurple),))
                 ],
               ),

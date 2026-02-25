@@ -3,49 +3,66 @@ import 'package:flutter/services.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 import '../../../../core/responsive/responsive_extension.dart';
 
-class CustomTextformffield extends StatelessWidget {
+class CustomTextformffield extends StatefulWidget {
   const CustomTextformffield({
     super.key,
     this.controller,
     required this.hint,
     required this.label,
-    // this.icon,
     this.obscureText = false,
-
+    this.validator
   });
 
   final TextEditingController? controller;
   final String hint;
   final String label;
-  // final IconButton? icon;
   final bool obscureText;
+  final String? Function(String?)? validator;
 
+  @override
+  State<CustomTextformffield> createState() => _CustomTextformffieldState();
+}
+
+class _CustomTextformffieldState extends State<CustomTextformffield> {
+  bool isShown = false;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: obscureText,
-      inputFormatters: [
-        FilteringTextInputFormatter.deny(RegExp(r'\s'))
-      ],
-      controller:controller ,
+      validator: widget.validator ,
+      obscureText: widget.obscureText ? !isShown : false,
+      inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s'))],
+      controller: widget.controller,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColor.kGrey,
-            width:1
-          ),
-          borderRadius: BorderRadius.circular(12)
+          borderSide: BorderSide(color: AppColor.kGrey, width: 1),
+          borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12)
+          borderRadius: BorderRadius.circular(12),
         ),
-        hintText: hint,
-        hintStyle: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),
-        labelText: label,
-        labelStyle: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),
-        suffixIcon: obscureText == true
-            ? const Icon(Icons.visibility_off,color: AppColor.kGrey,)
-            : null,      ),
+        hintText: widget.hint,
+        hintStyle: TextStyle(
+          fontSize: 17.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColor.kGrey,
+        ),
+        labelText: widget.label,
+        labelStyle: TextStyle(
+          fontSize: 17.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColor.kGrey,
+        ),
+        suffixIcon: widget.obscureText
+            ? IconButton(
+                icon: Icon(isShown ? Icons.visibility : Icons.visibility_off),
+                onPressed: () {
+                  setState(() {
+                    isShown = !isShown;
+                  });
+                },
+              )
+            : null,
+      ),
     );
   }
 }

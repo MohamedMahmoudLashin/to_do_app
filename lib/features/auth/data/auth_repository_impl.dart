@@ -13,10 +13,10 @@ class AuthRepositoryImpl extends AuthRepository{
 
       return "200";
     }on FirebaseAuthException catch(e){
-      if (e.code == 'weak password'){
-        print('The Password Provided is too weak');
-      }else if (e.code == 'email already in use'){
-        print('the account already exists  for that email');
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email');
       }
       return e.message ?? "FireError";
     }catch(e){
