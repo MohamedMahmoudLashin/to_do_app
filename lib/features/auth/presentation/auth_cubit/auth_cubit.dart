@@ -6,9 +6,9 @@ import 'package:to_do_app/features/auth/domain/auth_repository.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit(this.authRepo) : super(AuthInitial());
 
-  AuthRepository authRepo = AuthRepositoryImpl();
+  AuthRepository authRepo;
 
   Future<void> createUser(String email,String password)async{
     emit(AuthRegisterLoading());

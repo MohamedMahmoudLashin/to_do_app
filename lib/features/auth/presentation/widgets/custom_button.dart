@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
         color: AppColor.kPurple,
         borderRadius: BorderRadius.circular(12),
       ),
-      child:TextButton(onPressed: (){},
+      child:TextButton(onPressed: press,
           child: Text(text,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20.sp,color: AppColor.kWhite),)) ,
     );
   }

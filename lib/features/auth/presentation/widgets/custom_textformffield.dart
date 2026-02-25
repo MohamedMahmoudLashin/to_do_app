@@ -40,6 +40,14 @@ class _CustomTextformffieldState extends State<CustomTextformffield> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.kGrey, width: 1),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.kGrey, width: 1),
+          borderRadius: BorderRadius.circular(12),
+        ),
         hintText: widget.hint,
         hintStyle: TextStyle(
           fontSize: 17.sp,

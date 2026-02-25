@@ -3,12 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/features/auth/data/auth_repository_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/change_password.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/home.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/signup_screen.dart';
 import 'package:to_do_app/firebase_options.dart';
-
+import 'features/auth/domain/auth_repository.dart';
 import 'features/auth/presentation/ui_screens/signin_screen.dart';
 import 'features/auth/splash_screen/splash_screen.dart';
 
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => AuthCubit(AuthRepositoryImpl()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,

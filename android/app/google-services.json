@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "631898894429",
-    "project_id": "mmm-jj",
-    "storage_bucket": "mmm-jj.firebasestorage.app"
+    "project_number": "796357275000",
+    "project_id": "to-do-app-138da",
+    "storage_bucket": "to-do-app-138da.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:631898894429:android:ead9ecffd5686aa5ce5db4",
-        "android_client_info": {
-          "package_name": "com.NTI.todo_app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAQCMAGNturqLffpGpevm0BBvwSGvtTR2c"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:631898894429:android:1ce452ba7368fa1dce5db4",
+        "mobilesdk_app_id": "1:796357275000:android:44c05e758cd1bf046bec8d",
         "android_client_info": {
           "package_name": "com.example.to_do_app"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAQCMAGNturqLffpGpevm0BBvwSGvtTR2c"
+          "current_key": "AIzaSyAODezWpDp_i2FyIYfTfRsFOOs5l4dv410"
         }
       ],
       "services": {
