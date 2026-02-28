@@ -106,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         }
                       },
-                      hint: "confirm Password".tr(), label: "confirm Password".tr(),obscureText: true,controller: _confirmPasswordController,),
+                      hint: "confPass".tr(), label: "confPass".tr(),obscureText: true,controller: _confirmPasswordController,),
                    SizedBox(height: 20.h),
                     CustomButton(press: (){
                       if(formkey.currentState!.validate()){

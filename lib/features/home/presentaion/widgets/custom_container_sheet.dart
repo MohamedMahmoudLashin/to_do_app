@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_button_sheet.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_text_field.dart';
 import '../../../../core/responsive/responsive_extension.dart';
@@ -49,23 +52,30 @@ class _CustomContainerSheetState extends State<CustomContainerSheet> {
               SizedBox(height: 20.h,),
               CustomTextField(
                 onTap: () async {
-                  final DateTime? picked = await showDatePicker(
+                  var picked = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000), // أصغر تاريخ
-                    lastDate: DateTime(2100),  // أكبر تاريخ
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030),
                   );
-
                   if (picked != null) {
-                    String formatted = DateFormat('yyyy-MM-dd').format(picked);
+                    String formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
-                      deadLineController.text = formatted; // حط التاريخ في TextField
+                      deadLineController.text = formatted;
                     });
                   }
                 },
                 title: "Deadline (Optional)",readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller: deadLineController,),
               SizedBox(height: 20.h,),
-              CustomTextField(title: "Add Image (Optional)",maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
+              CustomTextField(onTap:()async{
+                var imagePicker = ImagePicker();
+                var image = await imagePicker.pickImage(source: ImageSource.gallery);
+                if(image !=null){
+                  File(image.path);
+                  setState(() {
+                  });
+                }
+              }
+                ,title: "Add Image (Optional)",maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
               SizedBox(height: 20.h,),
               CustomButtonSheet(press: (){}, text: "ADD TODO")
             ],

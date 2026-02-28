@@ -30,18 +30,18 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 80.h,),
             CustomProfileRow(title: "name".tr(),press: (){},),
             SizedBox(height: 20.h,),
-            CustomProfileRow(title: "Change Email",press: (){},),
+            CustomProfileRow(title: "changeEmail".tr(),press: (){},),
             SizedBox(height: 20.h,),
             CustomProfileRow(title: "changePass".tr(),press: (){},),
             SizedBox(height: 20.h,),
-            CustomProfileRow(title: "Change Language",press: (){},),
+            CustomProfileRow(title: "changeLang".tr(),press: (){},),
             SizedBox(height: 20.h,),
             Row(
               children: [
                 TextButton(
                     onPressed: ()async{
                       await FirebaseAuth.instance.signOut();
-                }, child: Text("Log Out",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
+                }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
               ],
             )
           ],

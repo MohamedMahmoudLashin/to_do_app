@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   dart_either: ^2.0.0
   cloud_firestore: ^6.1.2
+  image_picker: ^1.2.1
 
 
 dev_dependencies:

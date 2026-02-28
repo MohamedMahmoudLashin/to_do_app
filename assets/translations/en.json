@@ -7,8 +7,12 @@
   "confPass": "Confirm Password",
   "signIn": "Sign In",
   "SignUp": "Sign Up",
+  "logout": "Log Out",
   "forgPass": "Forgot Password?",
   "haveAnAccount": "Have an account?",
   "dontHaveAnAccount": "Don't have an account?",
-  "changePass": "Change Password"
+  "changePass": "Change Password",
+  "changeEmail": "Change Email",
+  "changeLang": "Change Language"
+
 }

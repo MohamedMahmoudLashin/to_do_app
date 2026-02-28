@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:796357275000:android:71fe92871810b4776bec8d",
+        "android_client_info": {
+          "package_name": "com.NTI.todo_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAODezWpDp_i2FyIYfTfRsFOOs5l4dv410"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:796357275000:android:44c05e758cd1bf046bec8d",
         "android_client_info": {
           "package_name": "com.example.to_do_app"
