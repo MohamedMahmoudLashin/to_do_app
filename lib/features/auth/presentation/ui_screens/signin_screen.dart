@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/responsive/responsive_extension.dart';
 import '../../../../core/theme/app_color.dart';
 import '../widgets/appbar_signin_register.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textformffield.dart';
-import 'change_password.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -16,6 +17,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   bool isShown = false;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               SizedBox(height: 5.h),
-              CustomButton(press: (){}, text: "signIn".tr()),
+              BlocBuilder<AuthCubit, AuthState>(
+  builder: (context, state) {
+    if(state is AuthSignInLoading){
+      return CircularProgressIndicator();
+    }
+    return CustomButton(press: (){
+      context.read<AuthCubit>().login(_emailController.text, _passwordController.text, "name");
+    }, text: "signIn".tr());
+  },
+),
               SizedBox(height: 5.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

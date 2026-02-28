@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import '../widgets/custom_profile_row.dart';
+import '../../../auth/presentation/widgets/custom_profile_row.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -28,15 +29,19 @@ class ProfileScreen extends StatelessWidget {
             SvgPicture.asset("assets/rafiki.svg"),
             SizedBox(height: 80.h,),
             CustomProfileRow(title: "name".tr(),press: (){},),
-            SizedBox(height: 10,),
+            SizedBox(height: 20.h,),
             CustomProfileRow(title: "Change Email",press: (){},),
-            SizedBox(height: 10,),
+            SizedBox(height: 20.h,),
             CustomProfileRow(title: "changePass".tr(),press: (){},),
-            SizedBox(height: 10,),
+            SizedBox(height: 20.h,),
             CustomProfileRow(title: "Change Language",press: (){},),
+            SizedBox(height: 20.h,),
             Row(
               children: [
-                TextButton(onPressed: (){}, child: Text("Log Out",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
+                TextButton(
+                    onPressed: ()async{
+                      await FirebaseAuth.instance.signOut();
+                }, child: Text("Log Out",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
               ],
             )
           ],

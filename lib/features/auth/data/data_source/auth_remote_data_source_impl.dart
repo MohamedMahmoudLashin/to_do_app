@@ -6,31 +6,39 @@ import 'package:to_do_app/features/auth/data/data_source/auth_remote_data_source
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<String> createUser(String email, String password,String name) async{
-   try{
-     final credential = await FirebaseAuth.instance.
-     createUserWithEmailAndPassword(email: email, password: password).
-     then((value) {
-       FirebaseFirestore.instance.collection('Users').doc(value.user!.uid).set(
-         {
-           "email":email,
-           "password":password,
-           "name":name,
-           "id":value.user!.uid
-         }
-       );
-     },);
-     credential.User?.sendEmailVerification();
-     return "200";
-   }on FirebaseException catch(e){
-     if(e.code=='weak-password'){
-       print('The password Provided is too weak');
-     }else if(e.code=='email-already exists'){
-       print('The account already exists for that email');
-     }
-     return e.message??"Firebase";
-   }catch(e){
-     return e.toString();
-   }
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      try {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(credential.user!.uid)
+            .set({
+          "email": email,
+          "name": name,
+          "id": credential.user!.uid
+        });
+      } catch (e) {
+        print("Firestore Error: $e");
+        return "Firestore Error: $e";
+      }
+
+      await credential.user?.sendEmailVerification();
+      return "200";
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        return "The password provided is too weak";
+      } else if (e.code == 'email-already-in-use') {
+        return "The account already exists for that email";
+      }
+      return e.message ?? "Firebase Auth Error";
+    } catch (e) {
+      return e.toString();
+    }
   }
 
   @override

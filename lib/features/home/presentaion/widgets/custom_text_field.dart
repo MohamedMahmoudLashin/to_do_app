@@ -10,7 +10,9 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     required this.maxLines,
     required this.textIconBorder,
-    this.readOnly=false, required this.controller
+    this.readOnly=false,
+    required this.controller,
+    this.onTap
 
   });
 
@@ -20,9 +22,11 @@ class CustomTextField extends StatelessWidget {
   final Color textIconBorder;
   final bool readOnly;
   final TextEditingController controller;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: onTap ,
       style: TextStyle(color: AppColor.kWhite,fontWeight: FontWeight.w700),
       controller:controller ,
       readOnly:readOnly,

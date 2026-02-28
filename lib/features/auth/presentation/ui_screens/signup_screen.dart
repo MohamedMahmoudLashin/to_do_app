@@ -19,11 +19,8 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
    final TextEditingController _emailController = TextEditingController();
-
    final TextEditingController _fullNameController = TextEditingController();
-
    final TextEditingController _passwordController = TextEditingController();
-
    final TextEditingController _confirmPasswordController = TextEditingController();
 
    GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -116,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         print(formkey.currentState!.validate());
                         print("================Button pressed ✅");
                         context.read<AuthCubit>().createUser(
-                        _emailController.text,_passwordController.text,"");
+                        _emailController.text,_passwordController.text,_fullNameController.text);
                       }
                       print("===================================");
                     }, text: "SignUp".tr()),

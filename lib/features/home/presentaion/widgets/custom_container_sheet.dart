@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_button_sheet.dart';
@@ -46,7 +47,23 @@ class _CustomContainerSheetState extends State<CustomContainerSheet> {
               SizedBox(height: 20.h,),
               CustomTextField(title: "Description",maxLines: 15,textIconBorder: AppColor.kWhite,controller: descriptionController,),
               SizedBox(height: 20.h,),
-              CustomTextField(title: "Deadline (Optional)",readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller: deadLineController,),
+              CustomTextField(
+                onTap: () async {
+                  final DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000), // أصغر تاريخ
+                    lastDate: DateTime(2100),  // أكبر تاريخ
+                  );
+
+                  if (picked != null) {
+                    String formatted = DateFormat('yyyy-MM-dd').format(picked);
+                    setState(() {
+                      deadLineController.text = formatted; // حط التاريخ في TextField
+                    });
+                  }
+                },
+                title: "Deadline (Optional)",readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller: deadLineController,),
               SizedBox(height: 20.h,),
               CustomTextField(title: "Add Image (Optional)",maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
               SizedBox(height: 20.h,),

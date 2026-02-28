@@ -9,7 +9,7 @@ import 'package:to_do_app/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/change_password.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/home.dart';
-import 'package:to_do_app/features/auth/presentation/ui_screens/profile_screen.dart';
+import 'package:to_do_app/features/home/presentaion/ui_screens/profile_screen.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/signup_screen.dart';
 import 'package:to_do_app/firebase_options.dart';
 import 'features/auth/presentation/ui_screens/signin_screen.dart';
