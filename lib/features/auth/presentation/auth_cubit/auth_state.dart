@@ -16,3 +16,16 @@ final class AuthRegisterError extends AuthState {
   final String message;
   AuthRegisterError(this.message);
 }
+////////////////////Login////////////////////////////
+
+final class AuthSignInLoading extends AuthState {}
+
+final class AuthSignInSuccess extends AuthState {
+  final User? res;
+  AuthSignInSuccess(this.res);
+}
+
+final class AuthSignInError extends AuthState {
+  final String message;
+  AuthSignInError(this.message);
+}

@@ -116,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         print(formkey.currentState!.validate());
                         print("================Button pressed ✅");
                         context.read<AuthCubit>().createUser(
-                        _emailController.text,_passwordController.text);
+                        _emailController.text,_passwordController.text,"");
                       }
                       print("===================================");
                     }, text: "SignUp".tr()),

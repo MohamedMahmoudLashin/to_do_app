@@ -1,4 +1,7 @@
-abstract class AuthRepository {
+import 'package:dart_either/dart_either.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
- Future<String> createUser(String email,String password);
+abstract class AuthRepository {
+ Future<String> createUser(String email,String password,String name);
+ Future<Either<String,User?>> login(String email,String password,String name);
 }

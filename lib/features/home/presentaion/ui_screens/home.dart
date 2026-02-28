@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
@@ -21,57 +20,15 @@ class _HOmeScreenState extends State<HOmeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         backgroundColor: AppColor.kWhite,
         appBar: AppbarHomeAddtodo(),
-      body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 25.h,vertical: 60.h),
-        child: ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
-          itemCount: tasks.length,
-          itemBuilder: (context,index){
-            return CustomContainerAdd(
-                title: tasks[index]['title']!,
-                description:tasks[index]['description']! ,
-                date:tasks[index]['date']!,
-                isPrimary: index==0
-            );
-          },
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding:  EdgeInsets.only(right: 20.h,bottom: 30.h),
-        child: Column(
-          spacing: 10.h,
-          mainAxisSize:MainAxisSize.min ,
-          mainAxisAlignment: .end,
-          children: [
-            FloatingActionButton(
-              heroTag: "drawnTag",
-                backgroundColor: AppColor.kPurple,
-                onPressed: (){
-                  setState(() {
-                    tasks.add({
-                      "title": "",
-                      "description": "",
-                      "date": "",
-                    });
-                  });
-                },
-            child: const Icon(Icons.draw,color: AppColor.kWhite,),),
+      body: Column(),
+      floatingActionButton:
             FloatingActionButton(
               heroTag: "addTask",
               backgroundColor: AppColor.kPurple,
-              onPressed: (){
-                setState(() {
-                  tasks.add({
-                    "title": "New Task",
-                    "description": "This is a new task",
-                    "date": "Created now",
-                  });
-                });
-              },
+              onPressed: (){},
               child: const Icon(Icons.add,color: AppColor.kWhite,),)
-          ],
-        ),
-      ));
+
+      );
 
   }
 }
