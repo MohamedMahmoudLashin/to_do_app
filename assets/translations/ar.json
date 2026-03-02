@@ -13,5 +13,10 @@
   "dontHaveAnAccount": "ليس لديك حساب؟",
   "changePass": "تغيير كلمة المرور",
   "changeEmail": "تغيير الحساب",
-  "changeLang": "تغيير اللغة"
+  "changeLang": "تغيير اللغة",
+  "title": "العنوان",
+  "description": "الوصف",
+  "deadline(Optional)": "الموعد النهائي (اختياري)",
+  "addImage(Optional)": "إضافة صورة (اختياري)",
+  "addToDo": "إضافة مهمة"
 }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_button_sheet.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_text_field.dart';
 import '../../../../core/responsive/responsive_extension.dart';
 import '../../../../core/theme/app_color.dart';
@@ -46,9 +47,9 @@ class _CustomContainerSheetState extends State<CustomContainerSheet> {
                   ),
                 ),
               ),
-              CustomTextField(title: "title",maxLines: 1,textIconBorder: AppColor.kWhite,controller: titleController,),
+              CustomTextField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: titleController,),
               SizedBox(height: 20.h,),
-              CustomTextField(title: "Description",maxLines: 15,textIconBorder: AppColor.kWhite,controller: descriptionController,),
+              CustomTextField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller: descriptionController,),
               SizedBox(height: 20.h,),
               CustomTextField(
                 onTap: () async {
@@ -64,7 +65,7 @@ class _CustomContainerSheetState extends State<CustomContainerSheet> {
                     });
                   }
                 },
-                title: "Deadline (Optional)",readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller: deadLineController,),
+                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller: deadLineController,),
               SizedBox(height: 20.h,),
               CustomTextField(onTap:()async{
                 var imagePicker = ImagePicker();
@@ -75,9 +76,11 @@ class _CustomContainerSheetState extends State<CustomContainerSheet> {
                   });
                 }
               }
-                ,title: "Add Image (Optional)",maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
+                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
               SizedBox(height: 20.h,),
-              CustomButtonSheet(press: (){}, text: "ADD TODO")
+              CustomButtonSheet(press: (){
+                Navigator.of(context).pop();
+              }, text: "addToDo".tr())
             ],
           ),
         ),

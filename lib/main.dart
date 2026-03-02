@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:to_do_app/features/auth/data/data_source/auth_remote_data_source_impl.dart';
 import 'package:to_do_app/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
@@ -12,8 +11,8 @@ import 'package:to_do_app/features/home/presentaion/ui_screens/home.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/profile_screen.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/signup_screen.dart';
 import 'package:to_do_app/firebase_options.dart';
+import 'package:to_do_app/splash_screen/splash_screen.dart';
 import 'features/auth/presentation/ui_screens/signin_screen.dart';
-import 'features/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,0 +1,8 @@
+import 'package:dart_either/dart_either.dart';
+import 'package:to_do_app/features/home/data/models/todo_param.dart';
+import '../models/todo_model.dart';
+
+abstract class HomeRemoteDataSource {
+  Future<String> createTodo(TodoParam todo);
+  Future<Either<String, List<TodoModel>>> getTodo();
+}

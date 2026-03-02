@@ -13,6 +13,10 @@
   "dontHaveAnAccount": "Don't have an account?",
   "changePass": "Change Password",
   "changeEmail": "Change Email",
-  "changeLang": "Change Language"
-
+  "changeLang": "Change Language",
+  "title": "title",
+  "description": "Description",
+  "deadline(Optional)": "Deadline(Optional)",
+  "addImage(Optional)": "Add Image(Optional)",
+  "addToDo": "AddToDo"
 }

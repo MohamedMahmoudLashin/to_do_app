@@ -6,9 +6,14 @@ import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 import '../../../auth/presentation/widgets/custom_profile_row.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +45,14 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 TextButton(
                     onPressed: ()async{
-                      await FirebaseAuth.instance.signOut();
+                      await FirebaseAuth.instance.signOut().then(
+                        (value) {
+                          Navigator.of(context).popAndPushNamed("signin");
+                        },
+                      );
+
+                      setState(() {
+                      });
                 }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
               ],
             )

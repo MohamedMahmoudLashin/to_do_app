@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import '../../../../core/responsive/responsive_extension.dart';
 import '../../../../core/theme/app_color.dart';
@@ -9,68 +10,122 @@ import '../widgets/appbar_signin_register.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textformffield.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final TextEditingController _nameController = TextEditingController();
+
   bool isShown = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.kWhite,
+      backgroundColor: AppColor.kWhite,
       appBar: AppbarSigninRegister(),
-      body:Center(
+      body: Center(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(
             children: [
               SizedBox(height: 70.h),
               SvgPicture.asset("assets/logo.svg"),
               SizedBox(height: 140.h),
-              CustomTextformffield(hint: "email".tr(), label: "email".tr(),),
+              CustomTextformffield(
+                hint: "email".tr(),
+                label: "email".tr(),
+                controller: _emailController,
+              ),
               SizedBox(height: 20.h),
-              CustomTextformffield(hint: "password".tr(), label: "password".tr(),obscureText: true,),
+              CustomTextformffield(
+                hint: "password".tr(),
+                label: "password".tr(),
+                obscureText: true,
+                controller: _passwordController,
+              ),
               SizedBox(height: 5.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: (){
-                    Navigator.of(context).pushNamed("changepassword");
-                  }, child:Text("forgPass".tr(),style: TextStyle(fontSize: 15.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),))
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed("changepassword");
+                    },
+                    child: Text(
+                      "forgPass".tr(),
+                      style: TextStyle(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColor.kGrey,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 5.h),
-              BlocBuilder<AuthCubit, AuthState>(
-  builder: (context, state) {
-    if(state is AuthSignInLoading){
-      return CircularProgressIndicator();
-    }
-    return CustomButton(press: (){
-      context.read<AuthCubit>().login(_emailController.text, _passwordController.text, "name");
-    }, text: "signIn".tr());
-  },
-),
+              ////////////////////////////////////
+              BlocListener<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthSignInSuccess) {
+                    Navigator.of(context).pushNamed("home");
+                  }
+                },
+                child: BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthSignInLoading) {
+                      return Skeletonizer(
+                        enabled: true,
+                        child: CustomButton(press: () {}, text: "Login"),
+                      );
+                    }
+                    return CustomButton(
+                      press: () {
+                        context.read<AuthCubit>().login(
+                          _emailController.text,
+                          _passwordController.text,
+                          "name",
+                        );
+                      },
+                      text: "signIn".tr(),
+                    );
+                  },
+                ),
+              ),
+              //////////////////////////////////////////
               SizedBox(height: 5.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("dontHaveAnAccount".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),),
-                  TextButton(onPressed: (){
-                   Navigator.of(context).pushReplacementNamed("signup");
-                  }, child:Text("SignUp".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kPurple),))
+                  Text(
+                    "dontHaveAnAccount".tr(),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.kGrey,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed("signup");
+                    },
+                    child: Text(
+                      "SignUp".tr(),
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColor.kPurple,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }
