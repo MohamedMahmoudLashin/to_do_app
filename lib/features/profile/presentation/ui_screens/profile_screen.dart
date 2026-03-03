@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import '../../../auth/presentation/widgets/custom_profile_row.dart';
+import 'package:to_do_app/features/profile/presentation/proffile_cubit/profile_cubit.dart';
+import '../widgets/custom_profile_row.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -39,21 +40,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 20.h,),
             CustomProfileRow(title: "changePass".tr(),press: (){},),
             SizedBox(height: 20.h,),
-            CustomProfileRow(title: "changeLang".tr(),press: (){},),
+            CustomProfileRow(title: "changeLang".tr(),press: (){
+
+            },),
             SizedBox(height: 20.h,),
             Row(
               children: [
-                TextButton(
-                    onPressed: ()async{
-                      await FirebaseAuth.instance.signOut().then(
-                        (value) {
-                          Navigator.of(context).popAndPushNamed("signin");
-                        },
-                      );
-
-                      setState(() {
-                      });
-                }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,letterSpacing: 1,color: AppColor.kPurple),)),
+                BlocConsumer<ProfileCubit, ProfileState>(
+                            listener: (context, state) {
+                              if (state is ProfileSignOutSuccess){
+                               Navigator.of(context).pushNamedAndRemoveUntil("signin",(route)=>false);
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state is ProfileSignOutLoading){
+                                return CircularProgressIndicator();
+                              }
+                              return TextButton(
+                    onPressed: (){  context.read<ProfileCubit>().signOut();
+                    }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18.sp,letterSpacing: 1,color: AppColor.kPurple),));
+                            },
+                          ),
               ],
             )
           ],

@@ -8,17 +8,22 @@ import 'package:to_do_app/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/change_password.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/home.dart';
-import 'package:to_do_app/features/home/presentaion/ui_screens/profile_screen.dart';
+import 'package:to_do_app/features/profile/data/data_source/profile_data_source_impl.dart';
+import 'package:to_do_app/features/profile/data/repo/repo_impl.dart';
+import 'package:to_do_app/features/profile/domain/repo/base_repo.dart';
+import 'package:to_do_app/features/profile/presentation/ui_screens/profile_screen.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/signup_screen.dart';
 import 'package:to_do_app/firebase_options.dart';
 import 'package:to_do_app/splash_screen/splash_screen.dart';
 import 'features/auth/presentation/ui_screens/signin_screen.dart';
+import 'features/profile/domain/use_case/sign_out_use_case.dart';
+import 'features/profile/presentation/proffile_cubit/profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
-     options: DefaultFirebaseOptions.currentPlatform
+      options: DefaultFirebaseOptions.currentPlatform
   );
   runApp(
     EasyLocalization(
@@ -52,8 +57,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(AuthRepoImpl(AuthRemoteDataSourceImpl())),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              AuthCubit(AuthRepoImpl(AuthRemoteDataSourceImpl())),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit(ProfileSignOutUseCase(ProfileRepoImpl(ProfileRemoteDataSourceImpl()))),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
