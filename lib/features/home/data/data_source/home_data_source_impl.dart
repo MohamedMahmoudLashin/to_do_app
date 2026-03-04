@@ -7,8 +7,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/todo_model.dart';
 import '../models/todo_param.dart';
+import 'home_data_source.dart';
 
-class HomeRemoteDataSource {
+class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<String> createTodo(TodoParam todo) async {
     var user = FirebaseAuth.instance.currentUser;
     var imageUrl;
@@ -43,8 +44,8 @@ class HomeRemoteDataSource {
       return E.toString();
     }
   }
-
-  Future<Either<String, List<TodoModel>>> getTodos() async {
+  @override
+  Future<Either<String, List<TodoModel>>> getTodo() async {
     var use = FirebaseAuth.instance.currentUser;
 
     try {
@@ -59,4 +60,5 @@ class HomeRemoteDataSource {
       return Left(e.toString());
     }
   }
+
 }

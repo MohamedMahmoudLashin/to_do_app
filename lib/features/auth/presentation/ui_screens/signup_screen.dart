@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   listener: (context, state) {
     print("Bloc State: $state");
     if (state is AuthRegisterSuccess){
-      Navigator.of(context).pushReplacementNamed("home");
+      Navigator.of(context).pushReplacementNamed("signin");
     }
     if (state is AuthRegisterError){
       ScaffoldMessenger.of(context).showSnackBar(

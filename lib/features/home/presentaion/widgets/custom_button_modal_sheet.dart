@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 import '../../../../core/responsive/responsive_extension.dart';
 
-class CustomButtonSheet extends StatelessWidget {
-  const CustomButtonSheet({super.key,
+class CustomButtonModalSheet extends StatelessWidget {
+  const CustomButtonModalSheet({super.key,
     required this.press,
     required this.text});
 

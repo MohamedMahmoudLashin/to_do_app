@@ -7,6 +7,12 @@ import 'package:to_do_app/features/auth/data/data_source/auth_remote_data_source
 import 'package:to_do_app/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/change_password.dart';
+import 'package:to_do_app/features/home/data/data_source/home_data_source.dart';
+import 'package:to_do_app/features/home/data/data_source/home_data_source_impl.dart';
+import 'package:to_do_app/features/home/data/repo/home_repo_impl.dart';
+import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dart';
+import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
+import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/home.dart';
 import 'package:to_do_app/features/profile/data/data_source/profile_data_source_impl.dart';
 import 'package:to_do_app/features/profile/data/repo/repo_impl.dart';
@@ -66,6 +72,11 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => ProfileCubit(ProfileSignOutUseCase(ProfileRepoImpl(ProfileRemoteDataSourceImpl()))),
         ),
+        BlocProvider(
+            create: (
+                context)=>HomeCubit(
+                CreateTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())),
+                GetTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl()))))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

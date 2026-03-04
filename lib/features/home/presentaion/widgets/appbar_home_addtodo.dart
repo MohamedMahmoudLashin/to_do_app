@@ -12,15 +12,15 @@ class AppbarHomeAddtodo extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(top:15.h),
       child: AppBar(
         backgroundColor: AppColor.kWhite,
-        actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 25.h),
-        leadingWidth: 100,
+        actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 25.sp),
+        leadingWidth: 130.sp,
         leading: SvgPicture.asset("assets/logo_icon.svg",),
         actions: [
           InkWell(onTap: (){
             Navigator.of(context).pushNamed("profile");
           },child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal:10.h),
-            child: SvgPicture.asset("assets/Vector.svg",width: 25.h,),
+            padding:  EdgeInsets.symmetric(horizontal:10.sp),
+            child: SvgPicture.asset("assets/Vector.svg",width: 30.w,),
           ))
         ],
       ),

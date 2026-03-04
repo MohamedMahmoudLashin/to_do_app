@@ -17,7 +17,7 @@ class CustomProfileRow extends StatelessWidget {
         padding:  EdgeInsets.symmetric(horizontal: 10.h),
         child: Row(
           children: [
-            Text(title,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18,letterSpacing: 1,color: AppColor.kGrey),),
+            Text(title,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 22.sp,letterSpacing: 1.4.sp,color: AppColor.kGrey),),
             Spacer(),
             Icon(Icons.arrow_forward_ios_outlined,color: AppColor.kGrey)
           ],

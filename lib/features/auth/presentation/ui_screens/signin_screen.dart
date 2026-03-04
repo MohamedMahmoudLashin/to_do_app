@@ -76,10 +76,7 @@ class SignInScreen extends StatelessWidget {
                 child: BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, state) {
                     if (state is AuthSignInLoading) {
-                      return Skeletonizer(
-                        enabled: true,
-                        child: CustomButton(press: () {}, text: "Login"),
-                      );
+                      return CircularProgressIndicator();
                     }
                     return CustomButton(
                       press: () {

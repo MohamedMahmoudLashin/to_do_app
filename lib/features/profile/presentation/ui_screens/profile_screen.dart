@@ -41,7 +41,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             CustomProfileRow(title: "changePass".tr(),press: (){},),
             SizedBox(height: 20.h,),
             CustomProfileRow(title: "changeLang".tr(),press: (){
-
+              if (context.locale==Locale('ar')){
+                context.setLocale(Locale('en'));
+              }else{
+                context.setLocale(Locale('ar'));
+              }
             },),
             SizedBox(height: 20.h,),
             Row(
@@ -58,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               }
                               return TextButton(
                     onPressed: (){  context.read<ProfileCubit>().signOut();
-                    }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18.sp,letterSpacing: 1,color: AppColor.kPurple),));
+                    }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp,letterSpacing: 1.4.sp,color: AppColor.kPurple),));
                             },
                           ),
               ],

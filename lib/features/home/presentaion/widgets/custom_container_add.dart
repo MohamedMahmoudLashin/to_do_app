@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/features/home/data/models/todo_model.dart';
 
 import '../../../../core/responsive/responsive_extension.dart';
 import '../../../../core/theme/app_color.dart';
@@ -7,12 +8,14 @@ import '../../../../core/theme/app_color.dart';
 class CustomContainerAdd extends StatelessWidget {
   const CustomContainerAdd({
     super.key,
+    required this.todo,
     required this.title,
     required this.description,
     required this.date,
     this.isPrimary=false
   });
 
+  final TodoModel todo;
   final String title;
   final String description;
   final String date;
