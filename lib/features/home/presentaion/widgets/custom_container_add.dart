@@ -6,19 +6,29 @@ import '../../../../core/responsive/responsive_extension.dart';
 import '../../../../core/theme/app_color.dart';
 
 class CustomContainerAdd extends StatelessWidget {
-  const CustomContainerAdd({
+   CustomContainerAdd({
     super.key,
     required this.todo,
-    required this.title,
-    required this.description,
-    required this.date,
+     required this.titleController,
+     required this.desController,
+     required this.deadLineController,
+     required this.imageController,
+    // required this.title,
+    // required this.description,
+    // required this.date,
     this.isPrimary=false
   });
 
   final TodoModel todo;
-  final String title;
-  final String description;
-  final String date;
+  final TextEditingController titleController ;
+
+  final TextEditingController desController ;
+
+  final TextEditingController deadLineController ;
+  final TextEditingController imageController ;
+  // final String title;
+  // final String description;
+  // final String date;
   final bool isPrimary ;
 
   @override
@@ -37,15 +47,15 @@ class CustomContainerAdd extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(title,style: TextStyle(fontSize: 20.h,fontWeight: FontWeight.w600,letterSpacing: 1.h,color: AppColor.kWhite),),
+                Text(titleController.text,style: TextStyle(fontSize: 20.h,fontWeight: FontWeight.w600,letterSpacing: 1.h,color: AppColor.kWhite),),
                 Spacer(),
                 const Icon(Icons.access_time_outlined,color: AppColor.kWhite,)
               ],
             ),
             SizedBox(height: 15.h,),
-            Text(description,style: TextStyle(fontSize: 17.h,fontWeight: FontWeight.w400,letterSpacing: 1.h,color: AppColor.kWhite.withOpacity(.9)),),
+            Text(desController.text,style: TextStyle(fontSize: 17.h,fontWeight: FontWeight.w400,letterSpacing: 1.h,color: AppColor.kWhite.withOpacity(.9)),),
             Spacer(),
-            Text(date,style: TextStyle(fontSize: 14.h,fontWeight: FontWeight.w400,color: AppColor.kWhite.withOpacity(.9)),),
+            Text(deadLineController.text,style: TextStyle(fontSize: 14.h,fontWeight: FontWeight.w400,color: AppColor.kWhite.withOpacity(.9)),),
           ],
         ),
       ),

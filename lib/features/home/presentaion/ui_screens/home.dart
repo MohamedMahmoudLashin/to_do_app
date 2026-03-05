@@ -9,6 +9,7 @@ import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dar
 import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
 import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add_shimmer.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_container_modal_sheet.dart';
 import '../widgets/appbar_home_addtodo.dart';
 
@@ -43,26 +44,31 @@ class _HOmeScreenState extends State<HOmeScreen> {
         body: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             if(state is HomeGetTodoLoading){
-              return Center(child: Lottie.asset('assets/animations/History.json'));
+              return CustomContainerAddShimmer();
             }else if(state is HomeGetTodoSuccess){
               var todos = state.todoModel;
-              return ListView.separated(
-                  itemBuilder: (context, index) {
-                    return CustomContainerAdd(todo: todos[index],
-                        title: titleController.text,
-                        description: desController.text,
-                        date: deadLineController.text);
-                  },
-                  separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                  itemCount: todos.length);
+              if (todos.isEmpty){
+                return Center(child: Lottie.asset('assets/animations/History.json'));
+              }
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 80.h),
+                child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return CustomContainerAdd(todo: todos[index],
+                          titleController: titleController,
+                          deadLineController: desController,
+                          desController: deadLineController,
+                      imageController: imageController,);
+                    },
+                    separatorBuilder: (context, index) => SizedBox(height: 21.h,),
+                    itemCount: todos.length),
+              );
             }else {
               return Container(color: Colors.red,);
 
             }
           },
         ),
-
-
         floatingActionButton:
         FloatingActionButton(
           heroTag: "addTask",

@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:to_do_app/features/home/data/models/todo_param.dart';
+import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_button_modal_sheet.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/custom_modal_text_form_field.dart';
@@ -84,6 +87,7 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                 ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller:  widget.addImageController,),
               SizedBox(height: 20.h,),
               CustomButtonModalSheet(press: (){
+                context.read<HomeCubit>().createTodo(TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text));
                 Navigator.of(context).pop();
               }, text: "addToDo".tr())
             ],
