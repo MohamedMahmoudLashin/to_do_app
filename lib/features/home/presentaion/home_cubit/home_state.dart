@@ -25,3 +25,15 @@ final class HomeGetTodoFailure  extends HomeState {
   final String message;
   HomeGetTodoFailure(this.message);
 }
+
+
+///////////////deletetodo////////////////
+
+final class HomeDeleteTodoLoading  extends HomeState {}
+
+final class HomeDeleteTodoSuccess  extends HomeState {}
+
+final class HomeDeleteTodoFailure  extends HomeState {
+  final String message;
+  HomeDeleteTodoFailure(this.message);
+}

@@ -4,14 +4,16 @@ import 'package:to_do_app/features/home/data/models/todo_model.dart';
 import 'package:to_do_app/features/home/data/models/todo_param.dart';
 import 'package:to_do_app/features/home/domain/repo/base_home_repo.dart';
 import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dart';
+import 'package:to_do_app/features/home/domain/use_case/delete_todo.dart';
 import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.createTodoUseCase, this.getTodoUseCase) : super(HomeInitial());
+  HomeCubit(this.createTodoUseCase, this.getTodoUseCase,this.deleteTodoUseCase) : super(HomeInitial());
   final CreateTodoUseCase createTodoUseCase;
   final GetTodoUseCase getTodoUseCase;
+  final DeleteTodoUseCase deleteTodoUseCase;
 
   Future<void> createTodo(TodoParam todo) async {
     emit(HomeCreateTodoLoading());
@@ -39,4 +41,15 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future<void>deleteTodo(String todoId)async{
+    emit(HomeDeleteTodoLoading());
+    var res = await deleteTodoUseCase.deleteTodo(todoId);
+    if (res == "200") {
+      emit(HomeDeleteTodoSuccess());
+    } else {
+      emit(HomeDeleteTodoFailure(res));
+    }
+  }
+
 }

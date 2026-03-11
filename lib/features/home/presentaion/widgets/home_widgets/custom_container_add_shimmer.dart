@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../core/responsive/responsive_extension.dart';
-import '../../../../core/theme/app_color.dart';
+import '../../../../../core/responsive/responsive_extension.dart';
+import '../../../../../core/theme/app_color.dart';
 
 class CustomContainerAddShimmer extends StatelessWidget {
   const CustomContainerAddShimmer({super.key, this.isPrimary = false});

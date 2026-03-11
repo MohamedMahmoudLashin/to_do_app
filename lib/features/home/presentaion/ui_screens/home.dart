@@ -3,15 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
+import 'package:to_do_app/features/home/domain/use_case/delete_todo.dart';
+import 'package:to_do_app/features/home/presentaion/ui_screens/detail_todo.dart';
 import 'package:to_do_app/features/home/data/data_source/home_data_source_impl.dart';
 import 'package:to_do_app/features/home/data/repo/home_repo_impl.dart';
 import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dart';
 import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
 import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add_shimmer.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_container_modal_sheet.dart';
-import '../widgets/appbar_home_addtodo.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_container_modal_sheet.dart';
+import '../widgets/home_widgets/appbar_home_addtodo.dart';
+import '../widgets/home_widgets/custom_container_add.dart';
+import '../widgets/home_widgets/custom_container_add_shimmer.dart';
 
 class HOmeScreen extends StatefulWidget {
   const HOmeScreen({super.key});
@@ -22,13 +24,10 @@ class HOmeScreen extends StatefulWidget {
 
 class _HOmeScreenState extends State<HOmeScreen> {
   final TextEditingController titleController = TextEditingController();
-
   final TextEditingController desController = TextEditingController();
-
   final TextEditingController deadLineController = TextEditingController();
   final TextEditingController imageController = TextEditingController();
 
-  //List<Map<String,String>>tasks = [];
   @override
   void initState() {
     context.read<HomeCubit>().getTodo();
@@ -54,11 +53,13 @@ class _HOmeScreenState extends State<HOmeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 80.h),
                 child: ListView.separated(
                     itemBuilder: (context, index) {
-                      return CustomContainerAdd(todo: todos[index],
-                          titleController: titleController,
-                          deadLineController: desController,
-                          desController: deadLineController,
-                      imageController: imageController,);
+                      return CustomContainerAdd(todo: todos[index],isPrimary: index==0,
+                        onTap: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=>DetailTodo(todo: todos[index]))
+                        );
+                        },
+                         );
                     },
                     separatorBuilder: (context, index) => SizedBox(height: 21.h,),
                     itemCount: todos.length),
@@ -83,7 +84,10 @@ class _HOmeScreenState extends State<HOmeScreen> {
                         CreateTodoUseCase(
                             HomeRepoImpl(HomeRemoteDataSourceImpl())),
                         GetTodoUseCase(
-                            HomeRepoImpl(HomeRemoteDataSourceImpl()))),
+                            HomeRepoImpl(HomeRemoteDataSourceImpl())),
+                    DeleteTodoUseCase(
+                      HomeRepoImpl(HomeRemoteDataSourceImpl())
+                    )),
                 child: CustomContainerModalSheet(
                   titleController: titleController,
                   descriptionController: desController,
@@ -98,7 +102,7 @@ class _HOmeScreenState extends State<HOmeScreen> {
               imageController.clear();
             },);
           },
-          child: const Icon(Icons.add, color: AppColor.kWhite,),)
+          child:  Icon(Icons.add, size: 32.h, color: AppColor.kWhite,),)
 
     );
   }

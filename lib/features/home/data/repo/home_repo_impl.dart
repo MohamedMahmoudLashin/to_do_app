@@ -19,4 +19,9 @@ class HomeRepoImpl extends BaseHomeRepo{
    return homeRemoteDataSource.getTodo();
   }
 
+  @override
+  Future<String> deleteTodo(String todoId) {
+    return homeRemoteDataSource.deleteTodo(todoId);
+  }
+
 }

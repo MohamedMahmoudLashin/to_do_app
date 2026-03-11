@@ -7,11 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:to_do_app/features/home/data/models/todo_param.dart';
 import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_button_modal_sheet.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_container_add.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/custom_modal_text_form_field.dart';
-import '../../../../core/responsive/responsive_extension.dart';
-import '../../../../core/theme/app_color.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_button_modal_sheet.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_modal_text_form_field.dart';
+import '../../../../../core/responsive/responsive_extension.dart';
+import '../../../../../core/theme/app_color.dart';
 
 class CustomContainerModalSheet extends StatefulWidget {
   final TextEditingController titleController ;
@@ -70,6 +69,7 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                     String formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
                       widget.deadLineController.text = formatted;
+                      print(widget.deadLineController.text);
                     });
                   }
                 },

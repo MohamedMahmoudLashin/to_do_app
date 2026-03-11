@@ -11,6 +11,7 @@ class AppbarHomeAddtodo extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: EdgeInsets.only(top:15.h),
       child: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: AppColor.kWhite,
         actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 25.sp),
         leadingWidth: 130.sp,

@@ -2,6 +2,7 @@ import 'dart:io' as io;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -10,8 +11,8 @@ import '../models/todo_param.dart';
 import 'home_data_source.dart';
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
+  var user = FirebaseAuth.instance.currentUser;
   Future<String> createTodo(TodoParam todo) async {
-    var user = FirebaseAuth.instance.currentUser;
     var imageUrl;
     try {
       if (todo.image != null) {
@@ -46,11 +47,9 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   }
   @override
   Future<Either<String, List<TodoModel>>> getTodo() async {
-    var use = FirebaseAuth.instance.currentUser;
-
     try {
       var response = await FirebaseFirestore.instance
-          .collection(use!.uid)
+          .collection(user!.uid)
           .get();
       var todos = response.docs.map((e) {
         return TodoModel.fromJson(e.data(), "");
@@ -58,6 +57,17 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       return Right(todos);
     } catch (e) {
       return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<String> deleteTodo(String todoId)async {
+    try{
+      var res = FirebaseFirestore.instance.
+      collection(user!.uid).doc(todoId).delete();
+      return "200";
+    }catch(e){
+      return e.toString();
     }
   }
 

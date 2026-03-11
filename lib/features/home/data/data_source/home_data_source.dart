@@ -5,4 +5,5 @@ import '../models/todo_model.dart';
 abstract class HomeRemoteDataSource {
   Future<String> createTodo(TodoParam todo);
   Future<Either<String, List<TodoModel>>> getTodo();
+  Future<String>deleteTodo(String todoId);
 }
