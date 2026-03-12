@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import 'package:to_do_app/features/home/domain/use_case/delete_todo.dart';
+import 'package:to_do_app/features/home/domain/use_case/delete_todo_use_case.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/detail_todo.dart';
 import 'package:to_do_app/features/home/data/data_source/home_data_source_impl.dart';
 import 'package:to_do_app/features/home/data/repo/home_repo_impl.dart';

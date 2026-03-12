@@ -4,7 +4,7 @@ import 'package:to_do_app/features/home/data/models/todo_model.dart';
 import 'package:to_do_app/features/home/data/models/todo_param.dart';
 import 'package:to_do_app/features/home/domain/repo/base_home_repo.dart';
 import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dart';
-import 'package:to_do_app/features/home/domain/use_case/delete_todo.dart';
+import 'package:to_do_app/features/home/domain/use_case/delete_todo_use_case.dart';
 import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
 
 part 'home_state.dart';

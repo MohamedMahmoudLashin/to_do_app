@@ -19,7 +19,7 @@ factory TodoModel.fromJson(Map<String,dynamic>json,String docId){
       id: docId,
       title: json['title']??'',
       des: json['des']??'',
-      deadline: json['deadliine']??'',
+      deadline: json['deadline']??'',
       image: json['image']??''
   );
 }

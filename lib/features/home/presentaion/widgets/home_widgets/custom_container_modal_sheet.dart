@@ -66,10 +66,10 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                     lastDate: DateTime(2030),
                   );
                   if (picked != null) {
-                    String formatted = DateFormat('dd MMMM yyyy').format(picked);
+                    var formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
                       widget.deadLineController.text = formatted;
-                      print(widget.deadLineController.text);
+                      //print(widget.deadLineController.text);
                     });
                   }
                 },

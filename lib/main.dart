@@ -7,7 +7,7 @@ import 'package:to_do_app/features/auth/data/data_source/auth_remote_data_source
 import 'package:to_do_app/features/auth/data/repository/auth_repo_impl.dart';
 import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:to_do_app/features/auth/presentation/ui_screens/change_password.dart';
-import 'package:to_do_app/features/home/domain/use_case/delete_todo.dart';
+import 'package:to_do_app/features/home/domain/use_case/delete_todo_use_case.dart';
 import 'package:to_do_app/features/home/presentaion/ui_screens/detail_todo.dart';
 import 'package:to_do_app/features/home/data/data_source/home_data_source.dart';
 import 'package:to_do_app/features/home/data/data_source/home_data_source_impl.dart';
