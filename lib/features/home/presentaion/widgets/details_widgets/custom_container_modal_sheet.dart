@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:to_do_app/features/home/data/models/todo_model.dart';
 import 'package:to_do_app/features/home/data/models/todo_param.dart';
 import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_button_modal_sheet.dart';
@@ -12,23 +13,21 @@ import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_
 import '../../../../../core/responsive/responsive_extension.dart';
 import '../../../../../core/theme/app_color.dart';
 
-class CustomContainerModalSheet extends StatefulWidget {
-  final TextEditingController titleController ;
-  final TextEditingController descriptionController ;
-  final TextEditingController deadLineController ;
-  final TextEditingController addImageController ;
-   CustomContainerModalSheet({super.key,
-     required this.titleController,
-     required this.descriptionController,
-     required this.deadLineController,
-     required this.addImageController});
+class CustomEditContainerModalSheet extends StatefulWidget {
+
+   CustomEditContainerModalSheet({super.key, required this.todo,
+     });
+   final TodoModel todo;
 
   @override
-  State<CustomContainerModalSheet> createState() => _CustomContainerModalSheetState();
+  State<CustomEditContainerModalSheet> createState() => _CustomContainerModalSheetState();
 }
 
-class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
-  File? pickedImage;
+class _CustomContainerModalSheetState extends State<CustomEditContainerModalSheet> {
+  final TextEditingController titleController =TextEditingController() ;
+  final TextEditingController descriptionController=TextEditingController() ;
+  final TextEditingController deadLineController=TextEditingController() ;
+  final TextEditingController addImageController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,9 +52,9 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                   ),
                 ),
               ),
-              CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: widget.titleController,),
+              CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: titleController,),
               SizedBox(height: 20.h,),
-              CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller:  widget.descriptionController,),
+              CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller: descriptionController,),
               SizedBox(height: 20.h,),
               CustomModalTextFormField(
                 onTap: () async {
@@ -67,28 +66,27 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                   if (picked != null) {
                     var formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
-                      widget.deadLineController.text = formatted;
-                      //print(widget.deadLineController.text);
+                     deadLineController.text = formatted;
                     });
                   }
                 },
-                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  widget.deadLineController,),
+                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  deadLineController,),
               SizedBox(height: 20.h,),
               CustomModalTextFormField(onTap:()async{
                 var imagePicker = ImagePicker();
                 var image = await imagePicker.pickImage(source: ImageSource.gallery);
                 if(image !=null){
-                   pickedImage=File(image.path);
+                  File(image.path);
                   setState(() {
                   });
                 }
               }
-                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller:  widget.addImageController,),
+                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
               SizedBox(height: 20.h,),
               CustomButtonModalSheet(press: (){
-                context.read<HomeCubit>().createTodo(TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,image:pickedImage));
+                context.read<HomeCubit>().createTodo(TodoParam(title: titleController.text , des:descriptionController.text,deadline: deadLineController.text,));
                 Navigator.of(context).pop();
-              }, text: "addToDo".tr())
+              }, text:"edittodo".tr())
             ],
           ),
         ),

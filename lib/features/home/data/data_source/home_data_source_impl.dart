@@ -1,8 +1,6 @@
 import 'dart:io' as io;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -63,12 +61,33 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<String> deleteTodo(String todoId)async {
     try{
-      var res = FirebaseFirestore.instance.
+      var res =await FirebaseFirestore.instance.
       collection(user!.uid).doc(todoId).delete();
       return "200";
     }catch(e){
       return e.toString();
     }
+  }
+
+  @override
+  Future<String> editTodo(String todoId,TodoParam todo)async {
+    String? imageUrl;
+    if (todo.image != null) {
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('${user!.uid}/$todoId.jpg');
+      await storageRef.putFile(todo.image!);
+      imageUrl = await storageRef.getDownloadURL();
+    }
+    var res = await FirebaseFirestore.instance.
+    collection(user!.uid).doc(todoId).set({
+      "title": todo.title,
+      "des": todo.des,
+      "deadline": todo.deadline,
+      if (imageUrl != null) "image": imageUrl,
+    },SetOptions(merge: true));
+    return "e.toString()";
+
   }
 
 }

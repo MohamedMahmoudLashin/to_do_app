@@ -6,4 +6,5 @@ abstract class BaseHomeRepo {
   Future<String> createTodo (TodoParam todo);
   Future<Either<String, List<TodoModel>>> getTodo();
   Future<String>deleteTodo(String todoId);
+  Future<String>editTodo(String todoId,TodoParam todo);
 }

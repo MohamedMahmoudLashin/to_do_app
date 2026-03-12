@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_container_modal_sheet.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/details_widgets/custom_container_modal_sheet.dart';
 import '../../../data/models/todo_model.dart';
 import '../../home_cubit/home_cubit.dart';
 
@@ -34,8 +34,7 @@ class AppbarDetailsDelete extends StatelessWidget
             showModalBottomSheet(
                 isScrollControlled: true,
                 context: context, builder: (context){
-             return Container();
-             // return CustomContainerModalSheet(addImageController: imageController,deadLineController:deadLineController,descriptionController: descController,titleController: titleController,);
+                  return CustomEditContainerModalSheet(todo: todo,);
             });
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
@@ -76,7 +75,6 @@ class AppbarDetailsDelete extends StatelessWidget
       ],
     );
   }
-
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
