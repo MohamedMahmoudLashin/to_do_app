@@ -18,5 +18,9 @@
   "description": "Description",
   "deadline(Optional)": "Deadline(Optional)",
   "addImage(Optional)": "Add Image(Optional)",
-  "addToDo": "AddToDo"
+  "addToDo": "AddToDo",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "deletetodo": "Delete Todo",
+  "warn": "Are you sure you want to delete this todo?"
 }

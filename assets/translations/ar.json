@@ -18,5 +18,9 @@
   "description": "الوصف",
   "deadline(Optional)": "الموعد النهائي (اختياري)",
   "addImage(Optional)": "إضافة صورة (اختياري)",
-  "addToDo": "إضافة مهمة"
+  "addToDo": "إضافة مهمة",
+  "delete": "حذف",
+  "cancel": "إلغاء",
+  "deletetodo": "حذف المهمة",
+  "warn": "هل أنت متاكد أنك تريد حذف هذه المهمة؟"
 }

@@ -29,7 +29,6 @@ class CustomContainerModalSheet extends StatefulWidget {
 
 class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,7 +86,7 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                 ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller:  widget.addImageController,),
               SizedBox(height: 20.h,),
               CustomButtonModalSheet(press: (){
-                context.read<HomeCubit>().createTodo(TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text));
+                context.read<HomeCubit>().createTodo(TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,));
                 Navigator.of(context).pop();
               }, text: "addToDo".tr())
             ],

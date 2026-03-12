@@ -15,7 +15,7 @@ class DetailTodo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.kWhite,
-      appBar: AppbarDetailsDelete(),
+      appBar: AppbarDetailsDelete(todo: todo,),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical:27.h,horizontal: 27.w),
@@ -25,8 +25,6 @@ class DetailTodo extends StatelessWidget {
               CustomTextTitleDetails(title:todo.title),
               SizedBox(height: 19.h,),
               CustomTextDetails(title: todo.des)
-
-
             ],
           ),
         ),

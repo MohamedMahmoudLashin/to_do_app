@@ -77,7 +77,8 @@ class _HOmeScreenState extends State<HOmeScreen> {
           onPressed: () {
             showModalBottomSheet(
               isScrollControlled: true,
-              context: context, builder: (context) {
+              context: context,
+              builder: (context) {
               return BlocProvider(
                 create: (context) =>
                     HomeCubit(

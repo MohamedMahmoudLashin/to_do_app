@@ -1,20 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_container_modal_sheet.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_modal_text_form_field.dart';
-
+import '../../../data/models/todo_model.dart';
 import '../../home_cubit/home_cubit.dart';
 
 class AppbarDetailsDelete extends StatelessWidget
     implements PreferredSizeWidget {
-  const AppbarDetailsDelete({super.key});
+  const AppbarDetailsDelete({super.key, required this.todo});
+  final TodoModel todo;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController title = TextEditingController();
     return AppBar(
       scrolledUnderElevation: 0,
       leading: IconButton(
@@ -34,7 +34,8 @@ class AppbarDetailsDelete extends StatelessWidget
             showModalBottomSheet(
                 isScrollControlled: true,
                 context: context, builder: (context){
-              return CustomContainerModalSheet(addImageController: title,deadLineController: title,descriptionController: title,titleController: title,);
+             return Container();
+             // return CustomContainerModalSheet(addImageController: imageController,deadLineController:deadLineController,descriptionController: descController,titleController: titleController,);
             });
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
@@ -48,28 +49,22 @@ class AppbarDetailsDelete extends StatelessWidget
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text("Delete Todo"),
-                    content: Text("Are you sure you want to delete this task?"),
+                    title: Text("deletetodo".tr(),style: TextStyle(fontSize:25.sp,fontWeight: FontWeight.w500),),
+                    content: Text("warn".tr(),style: TextStyle(fontSize:16.sp,fontWeight: FontWeight.w500)),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Cancel",style: TextStyle(color: AppColor.kBlack)),
+                        child: Text("cancel".tr(),style: TextStyle(color: AppColor.kGreen,fontSize:19.sp,fontWeight: FontWeight.w500)),
                       ),
-                      BlocConsumer<HomeCubit, HomeState>(
-  listener: (context, state) {
-    ////////////////////////////////////////////////////////////////////////
-  },
-  builder: (context, state) {
-    return TextButton(
+                      TextButton(
                         onPressed: () {
+                          context.read<HomeCubit>().deleteTodo(todo.id);
                           Navigator.pop(context);
                         },
-                        child: Text("Delete",style: TextStyle(color: AppColor.kPurple),),
-                      );
-  },
-),
+                        child: Text("delete".tr(),style: TextStyle(color: AppColor.kPurple,fontSize:19.sp,fontWeight: FontWeight.w500)),
+                      ),
                     ],
                   );
                 },
