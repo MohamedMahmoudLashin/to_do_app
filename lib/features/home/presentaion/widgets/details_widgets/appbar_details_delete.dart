@@ -60,7 +60,7 @@ class AppbarDetailsDelete extends StatelessWidget
                       TextButton(
                         onPressed: () {
                           context.read<HomeCubit>().deleteTodo(todo.id);
-                          Navigator.pop(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil("home", (_) => false,);
                         },
                         child: Text("delete".tr(),style: TextStyle(color: AppColor.kPurple,fontSize:19.sp,fontWeight: FontWeight.w500)),
                       ),
