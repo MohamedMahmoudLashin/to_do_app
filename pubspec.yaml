@@ -43,8 +43,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/translations/
-    - assets/animations/History.json
+#    - assets/translations/
+#    - assets/animations/History.json
+#    - assets/screenshots/
 
 
 flutter_native_splash:
