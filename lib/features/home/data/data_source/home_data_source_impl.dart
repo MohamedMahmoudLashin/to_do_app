@@ -85,9 +85,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       "des": todo.des,
       "deadline": todo.deadline,
       if (imageUrl != null) "image": imageUrl,
-    },SetOptions(merge: true));
+    }, SetOptions(merge: true));
     return "e.toString()";
-
   }
-
 }

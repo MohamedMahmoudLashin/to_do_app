@@ -11,6 +11,7 @@ import 'package:to_do_app/features/home/domain/use_case/create_todo_use_case.dar
 import 'package:to_do_app/features/home/domain/use_case/get_todo_use_case.dart';
 import 'package:to_do_app/features/home/presentaion/home_cubit/home_cubit.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/home_widgets/custom_container_modal_sheet.dart';
+import '../../domain/use_case/edit_todo_use_case.dart';
 import '../widgets/home_widgets/appbar_home_addtodo.dart';
 import '../widgets/home_widgets/custom_container_add.dart';
 import '../widgets/home_widgets/custom_container_add_shimmer.dart';
@@ -87,8 +88,8 @@ class _HOmeScreenState extends State<HOmeScreen> {
                         GetTodoUseCase(
                             HomeRepoImpl(HomeRemoteDataSourceImpl())),
                     DeleteTodoUseCase(
-                      HomeRepoImpl(HomeRemoteDataSourceImpl())
-                    )),
+                      HomeRepoImpl(HomeRemoteDataSourceImpl())),
+                      EditTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())),),
                 child: CustomContainerModalSheet(
                   titleController: titleController,
                   descriptionController: desController,

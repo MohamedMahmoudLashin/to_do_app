@@ -37,3 +37,14 @@ final class HomeDeleteTodoFailure  extends HomeState {
   final String message;
   HomeDeleteTodoFailure(this.message);
 }
+
+///////////////edittodo////////////////
+
+final class HomeEditTodoLoading  extends HomeState {}
+
+final class HomeEditTodoSuccess  extends HomeState {}
+
+final class HomeEditTodoFailure  extends HomeState {
+  final String message;
+  HomeEditTodoFailure(this.message);
+}

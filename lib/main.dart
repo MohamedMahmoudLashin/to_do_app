@@ -24,6 +24,7 @@ import 'package:to_do_app/features/auth/presentation/ui_screens/signup_screen.da
 import 'package:to_do_app/firebase_options.dart';
 import 'package:to_do_app/splash_screen/splash_screen.dart';
 import 'features/auth/presentation/ui_screens/signin_screen.dart';
+import 'features/home/domain/use_case/edit_todo_use_case.dart';
 import 'features/profile/domain/use_case/sign_out_use_case.dart';
 import 'features/profile/presentation/proffile_cubit/profile_cubit.dart';
 
@@ -79,7 +80,9 @@ class _MyAppState extends State<MyApp> {
                 context)=>HomeCubit(
                 CreateTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())),
                 GetTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())),
-    DeleteTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl()))),)
+    DeleteTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())),
+              EditTodoUseCase(HomeRepoImpl(HomeRemoteDataSourceImpl())), ),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
