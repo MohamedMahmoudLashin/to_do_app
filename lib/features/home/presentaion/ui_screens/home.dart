@@ -98,6 +98,7 @@ class _HOmeScreenState extends State<HOmeScreen> {
                 ),
               );
             },).then((value) {
+              context.read<HomeCubit>().getTodo();
               titleController.clear();
               desController.clear();
               deadLineController.clear();
