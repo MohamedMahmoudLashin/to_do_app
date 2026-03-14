@@ -14,20 +14,26 @@ import '../../../../../core/responsive/responsive_extension.dart';
 import '../../../../../core/theme/app_color.dart';
 
 class CustomEditContainerModalSheet extends StatefulWidget {
+  final TextEditingController titleController ;
+  final TextEditingController descriptionController ;
+  final TextEditingController deadLineController ;
+  final TextEditingController addImageController ;
+  final TodoModel todo;
 
-   CustomEditContainerModalSheet({super.key, required this.todo,
-     });
-   final TodoModel todo;
+  CustomEditContainerModalSheet({super.key,
+    required this.titleController,
+    required this.descriptionController,
+    required this.deadLineController,
+    required this.addImageController,
+    required this.todo,
+  });
 
   @override
-  State<CustomEditContainerModalSheet> createState() => _CustomContainerModalSheetState();
+  State<CustomEditContainerModalSheet> createState() => _CustomEditContainerModalSheetState();
 }
 
-class _CustomContainerModalSheetState extends State<CustomEditContainerModalSheet> {
-  final TextEditingController titleController =TextEditingController() ;
-  final TextEditingController descriptionController=TextEditingController() ;
-  final TextEditingController deadLineController=TextEditingController() ;
-  final TextEditingController addImageController =TextEditingController();
+class _CustomEditContainerModalSheetState extends State<CustomEditContainerModalSheet> {
+  File? pickedImage;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,14 +53,14 @@ class _CustomContainerModalSheetState extends State<CustomEditContainerModalShee
                   height: 8.h,
                   width: 100.w,
                   decoration: BoxDecoration(
-                    color: AppColor.kWhite,
-                    borderRadius: BorderRadius.circular(30.sp)
+                      color: AppColor.kWhite,
+                      borderRadius: BorderRadius.circular(30.sp)
                   ),
                 ),
               ),
-              CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: titleController,),
+              CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: widget.titleController,),
               SizedBox(height: 20.h,),
-              CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller: descriptionController,),
+              CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller:  widget.descriptionController,),
               SizedBox(height: 20.h,),
               CustomModalTextFormField(
                 onTap: () async {
@@ -66,27 +72,29 @@ class _CustomContainerModalSheetState extends State<CustomEditContainerModalShee
                   if (picked != null) {
                     var formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
-                     deadLineController.text = formatted;
+                      widget.deadLineController.text = formatted;
+                      //print(widget.deadLineController.text);
                     });
                   }
                 },
-                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  deadLineController,),
+                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  widget.deadLineController,),
               SizedBox(height: 20.h,),
               CustomModalTextFormField(onTap:()async{
                 var imagePicker = ImagePicker();
                 var image = await imagePicker.pickImage(source: ImageSource.gallery);
                 if(image !=null){
-                  File(image.path);
+                  pickedImage=File(image.path);
                   setState(() {
                   });
                 }
               }
-                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller: addImageController,),
+                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller:  widget.addImageController,),
               SizedBox(height: 20.h,),
-              CustomButtonModalSheet(press: (){
-                context.read<HomeCubit>().createTodo(TodoParam(title: titleController.text , des:descriptionController.text,deadline: deadLineController.text,));
+              CustomButtonModalSheet(press: ()async{
+                await context.read<HomeCubit>().editTodo(widget.todo.id, TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,image:pickedImage));
+                await context.read<HomeCubit>().getTodo();
                 Navigator.of(context).pop();
-              }, text:"edittodo".tr())
+              }, text: "edittodo".tr())
             ],
           ),
         ),

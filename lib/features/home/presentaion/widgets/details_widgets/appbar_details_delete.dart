@@ -4,18 +4,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
-import 'package:to_do_app/features/home/presentaion/widgets/details_widgets/custom_container_modal_sheet.dart';
+import 'package:to_do_app/features/home/presentaion/widgets/details_widgets/custom_edit_container_modal_sheet.dart';
 import '../../../data/models/todo_model.dart';
 import '../../home_cubit/home_cubit.dart';
 
 class AppbarDetailsDelete extends StatelessWidget
     implements PreferredSizeWidget {
-  const AppbarDetailsDelete({super.key, required this.todo});
+   AppbarDetailsDelete({super.key, required this.todo});
   final TodoModel todo;
-
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController desController = TextEditingController();
+  final TextEditingController deadLineController = TextEditingController();
+  final TextEditingController imageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColor.kWhite,
       scrolledUnderElevation: 0,
       leading: IconButton(
         onPressed: () {
@@ -28,10 +32,19 @@ class AppbarDetailsDelete extends StatelessWidget
         SizedBox(width: 10.w),
         GestureDetector(
           onTap: () {
+            titleController.text=todo.title;
+            desController.text=todo.des;
+            deadLineController.text=todo.deadline??"";
+            imageController.text=todo.image??"";
             showModalBottomSheet(
                 isScrollControlled: true,
                 context: context, builder: (context){
-                  return CustomEditContainerModalSheet(todo: todo,);
+                  return CustomEditContainerModalSheet(
+                    todo: todo,
+                    titleController: titleController,
+                  descriptionController: desController,
+                  deadLineController: deadLineController,
+                  addImageController: imageController,);
                 });
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
