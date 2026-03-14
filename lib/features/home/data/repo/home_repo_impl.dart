@@ -26,8 +26,7 @@ class HomeRepoImpl extends BaseHomeRepo{
 
   @override
   Future<String> editTodo(String todoId,TodoParam todo) {
-    // TODO: implement editTodo
-    throw UnimplementedError();
+    return homeRemoteDataSource.editTodo(todoId, todo);
   }
 
 }

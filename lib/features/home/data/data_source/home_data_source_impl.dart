@@ -50,7 +50,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
           .collection(user!.uid)
           .get();
       var todos = response.docs.map((e) {
-        return TodoModel.fromJson(e.data(), "");
+        return TodoModel.fromJson(e.data(),e.id);
       }).toList();
       return Right(todos);
     } catch (e) {
@@ -61,7 +61,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<String> deleteTodo(String todoId)async {
     try{
-      var res =await FirebaseFirestore.instance.
+      await FirebaseFirestore.instance.
       collection(user!.uid).doc(todoId).delete();
       return "200";
     }catch(e){
@@ -70,22 +70,32 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   }
 
   @override
-  Future<String> editTodo(String todoId,TodoParam todo)async {
-    String? imageUrl;
-    if (todo.image != null) {
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('${user!.uid}/$todoId.jpg');
-      await storageRef.putFile(todo.image!);
-      imageUrl = await storageRef.getDownloadURL();
+  Future<String> editTodo(String todoId, TodoParam todo) async {
+    try {
+      String? imageUrl;
+
+      if (todo.image != null) {
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('${user!.uid}/$todoId.jpg');
+
+        await storageRef.putFile(todo.image!);
+        imageUrl = await storageRef.getDownloadURL();
+      }
+
+      await FirebaseFirestore.instance
+          .collection(user!.uid)
+          .doc(todoId)
+          .set({
+        "title": todo.title,
+        "des": todo.des,
+        "deadline": todo.deadline,
+        if (imageUrl != null) "image": imageUrl,
+      }, SetOptions(merge: true));
+
+      return "200";
+    } catch (e) {
+      return e.toString();
     }
-    var res = await FirebaseFirestore.instance.
-    collection(user!.uid).doc(todoId).set({
-      "title": todo.title,
-      "des": todo.des,
-      "deadline": todo.deadline,
-      if (imageUrl != null) "image": imageUrl,
-    }, SetOptions(merge: true));
-    return "e.toString()";
   }
 }

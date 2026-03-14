@@ -21,13 +21,10 @@ class AppbarDetailsDelete extends StatelessWidget
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back_ios_new),
+        icon:const Icon(Icons.arrow_back_ios_new),
       ),
       actions: [
-        GestureDetector(
-          onTap: () {},
-          child: SvgPicture.asset("assets/clock.svg"),
-        ),
+        SvgPicture.asset("assets/clock.svg"),
         SizedBox(width: 10.w),
         GestureDetector(
           onTap: () {
@@ -35,7 +32,7 @@ class AppbarDetailsDelete extends StatelessWidget
                 isScrollControlled: true,
                 context: context, builder: (context){
                   return CustomEditContainerModalSheet(todo: todo,);
-            });
+                });
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
         ),
@@ -59,8 +56,14 @@ class AppbarDetailsDelete extends StatelessWidget
                       ),
                       TextButton(
                         onPressed: () {
-                          context.read<HomeCubit>().deleteTodo(todo.id);
-                          Navigator.of(context).pushNamedAndRemoveUntil("home", (_) => false,);
+                          context.read<HomeCubit>().deleteTodo(todo.id).then(
+                            (value) {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              context.read<HomeCubit>().getTodo();
+                            },
+                          );
+
                         },
                         child: Text("delete".tr(),style: TextStyle(color: AppColor.kPurple,fontSize:19.sp,fontWeight: FontWeight.w500)),
                       ),
