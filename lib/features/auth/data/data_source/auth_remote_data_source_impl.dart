@@ -57,4 +57,21 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   }
 
+  @override
+  Future<String?> getUserName() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+
+      final doc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .get();
+
+      return doc.data()?['name'];
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
 }

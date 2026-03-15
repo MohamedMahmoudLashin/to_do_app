@@ -17,4 +17,9 @@ class AuthRepoImpl extends AuthRepository{
   Future<Either<String, User?>> login(String email, String password,String name) {
     return authRemoteDataSource.login(email, password, name);
   }
+
+  @override
+  Future<String?> getUserName()async {
+    return authRemoteDataSource.getUserName();
+  }
 }

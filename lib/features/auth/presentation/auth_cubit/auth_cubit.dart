@@ -28,7 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
 
       res.fold(
         ifLeft: (e) {
-          print("Login Error: $e"); // <--- اطبع الخطأ
+          print("Login Error: $e");
           emit(AuthSignInError(e.toString()));
         },
         ifRight: (user) {
@@ -36,8 +36,25 @@ class AuthCubit extends Cubit<AuthState> {
         },
       );
     } catch (e) {
-      print("Unexpected Error: $e"); // <--- لو فيه خطأ غير متوقع
+      print("Unexpected Error: $e");
       emit(AuthSignInError(e.toString()));
+    }
+  }
+
+  Future<void> getUserName() async {
+    emit(AuthGetUserNameLoading());
+
+    try {
+      final name = await authRepo.getUserName();
+
+      if (name != null) {
+        emit(AuthGetUserNameSuccess(name));
+      } else {
+        emit(AuthGetUserNameError("User name not found"));
+      }
+
+    } catch (e) {
+      emit(AuthGetUserNameError(e.toString()));
     }
   }
 }

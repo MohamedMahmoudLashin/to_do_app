@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:to_do_app/core/responsive/responsive_extension.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
+import 'package:to_do_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
+import 'package:to_do_app/features/profile/presentation/widgets/custom_profile_row_shimmer.dart';
 import 'package:to_do_app/features/profile/presentation/proffile_cubit/profile_cubit.dart';
 import '../widgets/custom_profile_row.dart';
 
@@ -15,6 +17,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthCubit>().getUserName();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +41,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 30,),
             SvgPicture.asset("assets/rafiki.svg"),
             SizedBox(height: 80.h,),
-            CustomProfileRow(title: "name".tr(),press: (){},),
+            BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  if(state is AuthGetUserNameLoading){
+                    return CustomProfileRowShimmer();
+                  }else if(state is AuthGetUserNameSuccess){
+                    return CustomProfileRow(title: state.name,press: (){},);
+                  }else if(state is AuthGetUserNameError){
+                    return CustomProfileRow(title: state.message,press: (){},);
+                  }else{
+                    return CustomProfileRow(title: "name".tr(),press: (){},);
+                  }
+
+                      },
+                      ),
             SizedBox(height: 20.h,),
             CustomProfileRow(title: "changeEmail".tr(),press: (){},),
             SizedBox(height: 20.h,),

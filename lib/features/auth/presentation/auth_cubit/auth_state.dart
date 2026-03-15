@@ -29,3 +29,17 @@ final class AuthSignInError extends AuthState {
   final String message;
   AuthSignInError(this.message);
 }
+////////////////////getusername////////////////////////////
+
+final class AuthGetUserNameLoading extends AuthState {}
+
+final class AuthGetUserNameSuccess extends AuthState {
+  final String name;
+  AuthGetUserNameSuccess(this.name);
+}
+
+final class AuthGetUserNameError extends AuthState {
+  final String message;
+  AuthGetUserNameError(this.message);
+}
+
