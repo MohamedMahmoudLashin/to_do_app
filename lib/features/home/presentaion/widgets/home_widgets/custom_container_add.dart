@@ -52,7 +52,7 @@ class CustomContainerAdd extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 15.h,),
-              Expanded(child: SingleChildScrollView(child: Text(todo.des,style: TextStyle(fontSize: 17.h,fontWeight: FontWeight.w400,letterSpacing: 1.h,color: AppColor.kWhite.withValues(alpha: .9)),))),
+              Expanded(flex:6,child: SingleChildScrollView(child: Text(todo.des,style: TextStyle(fontSize: 17.h,fontWeight: FontWeight.w400,letterSpacing: 1.h,color: AppColor.kWhite.withValues(alpha: .9)),))),
               Spacer(),
               Text( todo.deadline??"Null",style: TextStyle(fontSize: 14.h,fontWeight: FontWeight.w400,color: AppColor.kWhite.withOpacity(.9)),),
             ],
