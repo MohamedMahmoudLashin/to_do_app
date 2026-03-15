@@ -20,7 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthCubit>().getUserName();
+    context.read<AuthCubit>().getUserData();
   }
   @override
   Widget build(BuildContext context) {
@@ -35,60 +35,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Padding(
         padding:  EdgeInsets.symmetric(horizontal: 10.h),
-        child: Column(
-          crossAxisAlignment: .stretch,
-          children: [
-            SizedBox(height: 30,),
-            SvgPicture.asset("assets/rafiki.svg"),
-            SizedBox(height: 80.h,),
-            BlocBuilder<AuthCubit, AuthState>(
-                builder: (context, state) {
-                  if(state is AuthGetUserNameLoading){
-                    return CustomProfileRowShimmer();
-                  }else if(state is AuthGetUserNameSuccess){
-                    return CustomProfileRow(title: state.name,press: (){},);
-                  }else if(state is AuthGetUserNameError){
-                    return CustomProfileRow(title: state.message,press: (){},);
-                  }else{
-                    return CustomProfileRow(title: "name".tr(),press: (){},);
+        child: BlocBuilder<AuthCubit, AuthState>(
+  builder: (context, state) {
+    if (state is AuthGetUserDataLoading){
+      return CustomProfileRowShimmer();
+    }else if (state is AuthGetUserDataSuccess){
+      return Column(
+        crossAxisAlignment: .stretch,
+        children: [
+          SizedBox(height: 30,),
+          SvgPicture.asset("assets/rafiki.svg"),
+          SizedBox(height: 80.h,),
+          CustomProfileRow(title: "name".tr(),title1:state.name,press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changeEmail".tr(),title1:state.email,press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changePass".tr(),title1:"**********",press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changeLang".tr(),press: (){
+            if (context.locale==Locale('ar')){
+              context.setLocale(Locale('en'));
+            }else{
+              context.setLocale(Locale('ar'));
+            }
+          },),
+          SizedBox(height: 20.h,),
+          Row(
+            children: [
+              BlocConsumer<ProfileCubit, ProfileState>(
+                listener: (context, state) {
+                  if (state is ProfileSignOutSuccess){
+                    Navigator.of(context).pushNamedAndRemoveUntil("signin",(route)=>false);
                   }
+                },
+                builder: (context, state) {
+                  if (state is ProfileSignOutLoading){
+                    return CircularProgressIndicator();
+                  }
+                  return TextButton(
+                      onPressed: (){  context.read<ProfileCubit>().signOut();
+                      }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp,letterSpacing: 1.4.sp,color: AppColor.kPurple),));
+                },
+              ),
+            ],
+          )
+        ],
+      );
+    }else if (state is AuthGetUserDataError){
+      return CustomProfileRow(title: state.message, press: (){});
+    }else{
+      return Column(
+        crossAxisAlignment: .stretch,
+        children: [
+          SizedBox(height: 30,),
+          SvgPicture.asset("assets/rafiki.svg"),
+          SizedBox(height: 80.h,),
+          CustomProfileRow(title: "name".tr(),press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changeEmail".tr(),press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changePass".tr(),press: (){},),
+          SizedBox(height: 20.h,),
+          CustomProfileRow(title: "changeLang".tr(),press: (){
+            if (context.locale==Locale('ar')){
+              context.setLocale(Locale('en'));
+            }else{
+              context.setLocale(Locale('ar'));
+            }
+          },),
+          SizedBox(height: 20.h,),
+          Row(
+            children: [
+              BlocConsumer<ProfileCubit, ProfileState>(
+                listener: (context, state) {
+                  if (state is ProfileSignOutSuccess){
+                    Navigator.of(context).pushNamedAndRemoveUntil("signin",(route)=>false);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is ProfileSignOutLoading){
+                    return CircularProgressIndicator();
+                  }
+                  return TextButton(
+                      onPressed: (){  context.read<ProfileCubit>().signOut();
+                      }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp,letterSpacing: 1.4.sp,color: AppColor.kPurple),));
+                },
+              ),
+            ],
+          )
+        ],
+      );
 
-                      },
-                      ),
-            SizedBox(height: 20.h,),
-            CustomProfileRow(title: "changeEmail".tr(),press: (){},),
-            SizedBox(height: 20.h,),
-            CustomProfileRow(title: "changePass".tr(),press: (){},),
-            SizedBox(height: 20.h,),
-            CustomProfileRow(title: "changeLang".tr(),press: (){
-              if (context.locale==Locale('ar')){
-                context.setLocale(Locale('en'));
-              }else{
-                context.setLocale(Locale('ar'));
-              }
-            },),
-            SizedBox(height: 20.h,),
-            Row(
-              children: [
-                BlocConsumer<ProfileCubit, ProfileState>(
-                            listener: (context, state) {
-                              if (state is ProfileSignOutSuccess){
-                               Navigator.of(context).pushNamedAndRemoveUntil("signin",(route)=>false);
-                              }
-                            },
-                            builder: (context, state) {
-                              if (state is ProfileSignOutLoading){
-                                return CircularProgressIndicator();
-                              }
-                              return TextButton(
-                    onPressed: (){  context.read<ProfileCubit>().signOut();
-                    }, child: Text("logout".tr(),style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22.sp,letterSpacing: 1.4.sp,color: AppColor.kPurple),));
-                            },
-                          ),
-              ],
-            )
-          ],
-        ),
+    }
+  },
+),
       ),
     );
   }
