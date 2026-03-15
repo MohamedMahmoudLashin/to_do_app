@@ -58,7 +58,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<String?> getUserName() async {
+  Future<Map<String, String?>?> getUserData() async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -67,7 +67,15 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
           .doc(uid)
           .get();
 
-      return doc.data()?['name'];
+      if (doc.exists && doc.data() != null) {
+        final data = doc.data()!;
+        return {
+          "name": data['name'],
+          "email": data['email'],
+          "password": data['password'],
+        };
+      }
+      return null;
     } catch (e) {
       print(e);
       return null;

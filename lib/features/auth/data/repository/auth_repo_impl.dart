@@ -19,7 +19,7 @@ class AuthRepoImpl extends AuthRepository{
   }
 
   @override
-  Future<String?> getUserName()async {
-    return authRemoteDataSource.getUserName();
+  Future<Map<String, String?>?> getUserData() async {
+    return authRemoteDataSource.getUserData();
   }
 }

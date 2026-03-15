@@ -31,15 +31,17 @@ final class AuthSignInError extends AuthState {
 }
 ////////////////////getusername////////////////////////////
 
-final class AuthGetUserNameLoading extends AuthState {}
+final class AuthGetUserDataLoading extends AuthState {}
 
-final class AuthGetUserNameSuccess extends AuthState {
-  final String name;
-  AuthGetUserNameSuccess(this.name);
+final class AuthGetUserDataSuccess extends AuthState {
+  final String? name;
+  final String? email;
+  final String? password; // لو موجود
+  AuthGetUserDataSuccess({this.name, this.email, this.password});
 }
 
-final class AuthGetUserNameError extends AuthState {
+final class AuthGetUserDataError extends AuthState {
   final String message;
-  AuthGetUserNameError(this.message);
+  AuthGetUserDataError(this.message);
 }
 

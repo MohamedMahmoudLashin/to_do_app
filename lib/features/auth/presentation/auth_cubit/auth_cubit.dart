@@ -41,20 +41,24 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> getUserName() async {
-    emit(AuthGetUserNameLoading());
+  Future<void> getUserData() async {
+    emit(AuthGetUserDataLoading());
 
     try {
-      final name = await authRepo.getUserName();
+      final data = await authRepo.getUserData();
 
-      if (name != null) {
-        emit(AuthGetUserNameSuccess(name));
+      if (data != null) {
+        emit(AuthGetUserDataSuccess(
+          name: data['name'],
+          email: data['email'],
+          password: data['password'], // لو موجود
+        ));
       } else {
-        emit(AuthGetUserNameError("User name not found"));
+        emit(AuthGetUserDataError("User data not found"));
       }
 
     } catch (e) {
-      emit(AuthGetUserNameError(e.toString()));
+      emit(AuthGetUserDataError(e.toString()));
     }
   }
 }
