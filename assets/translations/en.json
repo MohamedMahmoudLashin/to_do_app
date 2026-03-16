@@ -23,6 +23,9 @@
   "cancel": "Cancel",
   "deletetodo": "Delete Todo",
   "warn": "Are you sure you want to delete this todo?",
-  "edittodo":"EDIT TODO"
+  "edittodo":"Edit To Do",
+  "arabic": "Arabic",
+  "english": "English",
+  "createdat": "Created at"
 
 }
