@@ -45,13 +45,16 @@ class AppbarDetailsDelete extends StatelessWidget
                   descriptionController: desController,
                   deadLineController: deadLineController,
                   addImageController: imageController,);
-                });
+                }).
+            then((value) {
+              context.read<HomeCubit>().getTodo();
+            },);
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
         ),
         SizedBox(width: 10.w),
         Padding(
-          padding: EdgeInsets.only(right: 27.w),
+          padding: EdgeInsetsDirectional.only(start: 1.w,end: 27.w),
           child: GestureDetector(
             onTap: () {
               showDialog(

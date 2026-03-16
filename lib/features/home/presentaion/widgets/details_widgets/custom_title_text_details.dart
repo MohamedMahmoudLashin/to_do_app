@@ -9,6 +9,6 @@ class CustomTextTitleDetails extends StatelessWidget {
   final String? title;
   @override
   Widget build(BuildContext context) {
-    return Text("$title",style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.w600,color: AppColor.kBlack),) ;
+    return Text("$title",textAlign:TextAlign.start,style: TextStyle(fontSize: 19.sp,fontWeight: FontWeight.w600,color: AppColor.kBlack),) ;
   }
 }
