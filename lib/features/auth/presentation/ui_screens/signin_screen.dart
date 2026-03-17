@@ -14,12 +14,8 @@ class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
-
-  final TextEditingController _nameController = TextEditingController();
-
-  bool isShown = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,97 +25,127 @@ class SignInScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w),
-          child: Column(
-            children: [
-              SizedBox(height: 70.h),
-              SvgPicture.asset("assets/logo.svg"),
-              SizedBox(height: 140.h),
-              CustomTextformffield(
-                hint: "email".tr(),
-                label: "email".tr(),
-                controller: _emailController,
-              ),
-              SizedBox(height: 20.h),
-              CustomTextformffield(
-                hint: "password".tr(),
-                label: "password".tr(),
-                obscureText: true,
-                controller: _passwordController,
-              ),
-              SizedBox(height: 5.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed("changepassword");
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(height: 70.h),
+                SvgPicture.asset("assets/logo.svg"),
+                SizedBox(height: 140.h),
+
+                // Email Field
+                CustomTextformffield(
+                  hint: "email".tr(),
+                  label: "email".tr(),
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "emailRequired".tr(); // "Email is required"
+                    }
+                    if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")
+                        .hasMatch(value)) {
+                      return "emailInvalid".tr(); // "Invalid email"
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20.h),
+
+                // Password Field
+                CustomTextformffield(
+                  hint: "password".tr(),
+                  label: "password".tr(),
+                  obscureText: true,
+                  controller: _passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "passwordRequired".tr();
+                    }
+                    if (value.length < 6) {
+                      return "passwordMinLength".tr();
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 5.h),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("changepassword");
+                      },
+                      child: Text(
+                        "forgPass".tr(),
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.kGrey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5.h),
+
+                // Bloc + Button
+                BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is AuthSignInSuccess) {
+                      Navigator.of(context).pushNamed("home");
+                    }
+                  },
+                  child: BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      if (state is AuthSignInLoading) {
+                        return CircularProgressIndicator();
+                      }
+                      return CustomButton(
+                        press: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().login(
+                              _emailController.text,
+                              _passwordController.text,
+                              "name",
+                            );
+                          }
+                        },
+                        text: "signIn".tr(),
+                      );
                     },
-                    child: Text(
-                      "forgPass".tr(),
+                  ),
+                ),
+
+                SizedBox(height: 5.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "dontHaveAnAccount".tr(),
                       style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColor.kGrey,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5.h),
-              ////////////////////////////////////
-              BlocListener<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if (state is AuthSignInSuccess) {
-                    Navigator.of(context).pushNamed("home");
-                  }
-                },
-                child: BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    if (state is AuthSignInLoading) {
-                      return CircularProgressIndicator();
-                    }
-                    return CustomButton(
-                      press: () {
-                        context.read<AuthCubit>().login(
-                          _emailController.text,
-                          _passwordController.text,
-                          "name",
-                        );
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed("signup");
                       },
-                      text: "signIn".tr(),
-                    );
-                  },
-                ),
-              ),
-              //////////////////////////////////////////
-              SizedBox(height: 5.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "dontHaveAnAccount".tr(),
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColor.kGrey,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed("signup");
-                    },
-                    child: Text(
-                      "SignUp".tr(),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.kPurple,
+                      child: Text(
+                        "SignUp".tr(),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.kPurple,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

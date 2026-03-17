@@ -11,42 +11,41 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_textformffield.dart';
 
 class SignUpScreen extends StatefulWidget {
-   SignUpScreen({super.key});
+  SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-   final TextEditingController _emailController = TextEditingController();
-   final TextEditingController _fullNameController = TextEditingController();
-   final TextEditingController _passwordController = TextEditingController();
-   final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
-   GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-  listener: (context, state) {
-    print("Bloc State: $state");
-    if (state is AuthRegisterSuccess){
-      Navigator.of(context).pushReplacementNamed("signin");
-    }
-    if (state is AuthRegisterError){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Center(child: Text(state.message)))
-      );
-    }
-    // TODO: implement listener
-  },
-  child: Scaffold(
+      listener: (context, state) {
+        print("Bloc State: $state");
+        if (state is AuthRegisterSuccess) {
+          Navigator.of(context).pushReplacementNamed("signin");
+        }
+        if (state is AuthRegisterError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Center(child: Text(state.message))),
+          );
+        }
+      },
+      child: Scaffold(
         backgroundColor: AppColor.kWhite,
         appBar: AppbarSigninRegister(),
-        body:Center(
+        body: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 30.w),
+              padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: Form(
                 key: formkey,
                 child: Column(
@@ -54,79 +53,119 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(height: 70.h),
                     SvgPicture.asset("assets/logo.svg"),
                     SizedBox(height: 120.h),
+
+                    // Email
                     CustomTextformffield(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "please enter email";
+                          return "emailRequired".tr();
                         }
-                        final emailRegex =
-                        RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                        final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                         if (!emailRegex.hasMatch(value)) {
-                          return "please enter valid email";
+                          return "emailInvalid".tr();
                         }
                         return null;
                       },
-                      // validator: (value){
-                      //   if (value==null|| !value.contains('.com')||!value.contains('@')||value.isEmpty) {
-                      //     return "please enter valid email";
-                      //   }else{
-                      //     return null;
-                      //   }
-                      // },
-                      hint: "email".tr(), label: "email".tr(),controller: _emailController,),
+                      hint: "email".tr(),
+                      label: "email".tr(),
+                      controller: _emailController,
+                    ),
                     SizedBox(height: 20.h),
+
+                    // Full Name
                     CustomTextformffield(
-                      validator: (value){
-                        if (value ==null||value.trim().isEmpty){
-                          return "please enter valid name";
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "fullNameRequired".tr();
                         }
-                        else{
-                          return null;
-                        }
+                        return null;
                       },
-                      hint: "fullName".tr(), label: "fullName".tr(),controller: _fullNameController,),
+                      hint: "fullName".tr(),
+                      label: "fullName".tr(),
+                      controller: _fullNameController,
+                    ),
                     SizedBox(height: 20.h),
+
+                    // Password
                     CustomTextformffield(
-                      validator: (value){
-                        if (value==null || value.length<8){
-                          return "please enter valid password";
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "passwordRequired".tr();
                         }
-                        else{
-                          return null;
+                        if (value.length < 6) {
+                          return "passwordMinLength".tr();
                         }
+                        return null;
                       },
-                      hint: "password".tr(), label: "password".tr(),obscureText: true,controller: _passwordController,),
-                   SizedBox(height: 20.h),
+                      hint: "password".tr(),
+                      label: "password".tr(),
+                      obscureText: true,
+                      controller: _passwordController,
+                    ),
+                    SizedBox(height: 20.h),
+
+                    // Confirm Password
                     CustomTextformffield(
-                      validator: (value){
-                        if(value != _passwordController.text||value == null || value.isEmpty){
-                          return "Passwords do not match";
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "confirmPasswordRequired".tr();
                         }
-                        else{
-                          return null;
+                        if (value != _passwordController.text) {
+                          return "passwordsNotMatch".tr();
                         }
+                        return null;
                       },
-                      hint: "confPass".tr(), label: "confPass".tr(),obscureText: true,controller: _confirmPasswordController,),
-                   SizedBox(height: 20.h),
-                    CustomButton(press: (){
-                      if(formkey.currentState!.validate()){
-                        print(formkey.currentState!.validate());
-                        print("================Button pressed ✅");
-                        context.read<AuthCubit>().createUser(
-                        _emailController.text,_passwordController.text,_fullNameController.text);
-                      }
-                      print("===================================");
-                    }, text: "SignUp".tr()),
+                      hint: "confPass".tr(),
+                      label: "confPass".tr(),
+                      obscureText: true,
+                      controller: _confirmPasswordController,
+                    ),
+                    SizedBox(height: 20.h),
+
+                    // Sign Up Button
+                    CustomButton(
+                      press: () {
+                        if (formkey.currentState!.validate()) {
+                          print(formkey.currentState!.validate());
+                          print("================Button pressed ✅");
+                          context.read<AuthCubit>().createUser(
+                            _emailController.text,
+                            _passwordController.text,
+                            _fullNameController.text,
+                          );
+                        }
+                        print("===================================");
+                      },
+                      text: "SignUp".tr(),
+                    ),
                     SizedBox(height: 5.h),
+
+                    // Already have account
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("haveAnAccount".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kGrey),),
-                        TextButton(onPressed: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context)=>SignInScreen())
-                        );
-                          }, child:Text("signIn".tr(),style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: AppColor.kPurple),))
+                        Text(
+                          "haveAnAccount".tr(),
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.kGrey),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => SignInScreen()),
+                            );
+                          },
+                          child: Text(
+                            "signIn".tr(),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.kPurple),
+                          ),
+                        )
                       ],
                     ),
                   ],
@@ -134,8 +173,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        )
-    ),
-);
+        ),
+      ),
+    );
   }
 }
