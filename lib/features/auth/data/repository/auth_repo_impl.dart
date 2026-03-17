@@ -22,4 +22,10 @@ class AuthRepoImpl extends AuthRepository{
   Future<Map<String, String?>?> getUserData() async {
     return authRemoteDataSource.getUserData();
   }
+
+  @override
+  Future<String> resetPassword(String email) {
+    return authRemoteDataSource.resetPassword(email);
+  }
+
 }
