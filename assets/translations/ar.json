@@ -22,9 +22,17 @@
   "delete": "حذف",
   "cancel": "إلغاء",
   "deletetodo": "حذف المهمة",
-  "warn": "هل أنت متاكد أنك تريد حذف هذه المهمة؟",
+  "warn": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
   "edittodo":"تعديل المهمة",
   "arabic": "العربية",
   "english": "الإنجليزية",
-  "createdat": "تم إنشاؤه في"
+  "createdat": "تم إنشاؤه في",
+  "changepass": "تم تغيير كلمة المرور بنجاح",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "passwordMinLength": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+  "passwordsNotMatch": "كلمتا المرور غير متطابقتين",
+  "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "fullNameRequired": "الاسم الكامل مطلوب",
+  "emailInvalid": "البريد الإلكتروني غير صالح"
 }

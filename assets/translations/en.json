@@ -14,11 +14,11 @@
   "changePass": "Change Password",
   "changeEmail": "Change Email",
   "changeLang": "Change Language",
-  "title": "title",
+  "title": "Title",
   "description": "Description",
-  "deadline(Optional)": "Deadline(Optional)",
-  "addImage(Optional)": "Add Image(Optional)",
-  "addToDo": "AddToDo",
+  "deadline(Optional)": "Deadline (Optional)",
+  "addImage(Optional)": "Add Image (Optional)",
+  "addToDo": "Add To Do",
   "delete": "Delete",
   "cancel": "Cancel",
   "deletetodo": "Delete Todo",
@@ -26,6 +26,13 @@
   "edittodo":"Edit To Do",
   "arabic": "Arabic",
   "english": "English",
-  "createdat": "Created at"
-
+  "createdat": "Created at",
+  "changepass": "Password changed successfully",
+  "passwordRequired": "Password is required",
+  "passwordMinLength": "Password must be at least 6 characters",
+  "passwordsNotMatch": "Passwords do not match",
+  "confirmPasswordRequired": "Confirm password is required",
+  "emailRequired": "Email is required",
+  "fullNameRequired": "Full name is required",
+  "emailInvalid": "Invalid email"
 }

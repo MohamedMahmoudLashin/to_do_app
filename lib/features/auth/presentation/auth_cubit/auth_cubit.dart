@@ -51,7 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthGetUserDataSuccess(
           name: data['name'],
           email: data['email'],
-          password: data['password'], // لو موجود
+          password: data['password'],
         ));
       } else {
         emit(AuthGetUserDataError("User data not found"));
@@ -62,15 +62,20 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> resetPassword(String email) async {
-    emit(AuthResetPasswordLoading());
+  Future<void> changePassword(String password, String confirmPassword) async {
+    if (password != confirmPassword) {
+      emit(AuthChangePasswordError("Passwords do not match"));
+      return;
+    }
 
-    final result = await authRepo.resetPassword(email);
+    emit(AuthChangePasswordLoading());
 
-    if (result == "Password reset email sent") {
-      emit(AuthResetPasswordSuccess(email: email));
+    final result = await authRepo.changePassword(password);
+
+    if (result == "Password updated successfully") {
+      emit(AuthChangePasswordSuccess());
     } else {
-      emit(AuthResetPasswordError(result));
+      emit(AuthChangePasswordError(result));
     }
   }
 }
