@@ -36,7 +36,7 @@ final class AuthGetUserDataLoading extends AuthState {}
 final class AuthGetUserDataSuccess extends AuthState {
   final String? name;
   final String? email;
-  final String? password; // لو موجود
+  final String? password;
   AuthGetUserDataSuccess({this.name, this.email, this.password});
 }
 
@@ -44,4 +44,17 @@ final class AuthGetUserDataError extends AuthState {
   final String message;
   AuthGetUserDataError(this.message);
 }
+////////////////////resetpassword////////////////////////////
 
+final class AuthResetPasswordLoading extends AuthState {}
+
+final class AuthResetPasswordSuccess extends AuthState {
+
+  final String? email;
+  AuthResetPasswordSuccess({ this.email,});
+}
+
+final class AuthResetPasswordError extends AuthState {
+  final String message;
+  AuthResetPasswordError(this.message);
+}
