@@ -5,4 +5,5 @@ abstract class AuthRemoteDataSource {
   Future<String> createUser(String email, String password,String name);
   Future<Either<String, User?>> login(String email, String password,String name);
   Future<Map<String, String?>?> getUserData();
+  Future<String> resetPassword(String email);
 }
