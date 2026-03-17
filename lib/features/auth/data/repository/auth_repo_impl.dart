@@ -24,8 +24,8 @@ class AuthRepoImpl extends AuthRepository{
   }
 
   @override
-  Future<String> resetPassword(String email) {
-    return authRemoteDataSource.resetPassword(email);
+  Future<String> changePassword(String newPassword)async{
+    return authRemoteDataSource.changePassword(newPassword);
   }
 
 }

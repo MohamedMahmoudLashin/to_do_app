@@ -83,17 +83,15 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
   // 🔥 Reset Password Function
   @override
-  Future<String> resetPassword(String email) async {
+  Future<String> changePassword(String newPassword) async {
     try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: email);
+      await FirebaseAuth.instance.currentUser!
+          .updatePassword(newPassword);
 
-      return "Password reset email sent";
+      return "Password updated successfully";
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return "No user found for that email.";
-      } else if (e.code == 'invalid-email') {
-        return "Invalid email format.";
+      if (e.code == 'requires-recent-login') {
+        return "Please login again and try.";
       }
       return e.message ?? "Something went wrong";
     } catch (e) {
