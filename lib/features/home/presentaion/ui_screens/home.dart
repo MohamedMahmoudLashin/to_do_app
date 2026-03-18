@@ -94,7 +94,7 @@ class _HOmeScreenState extends State<HOmeScreen> {
                   titleController: titleController,
                   descriptionController: desController,
                   deadLineController: deadLineController,
-                  //addImageController: imageController,
+                  addImageController: imageController,
                 ),
               );
             },).then((value) {
