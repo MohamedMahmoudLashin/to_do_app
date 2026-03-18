@@ -13,23 +13,24 @@ import '../../../../../core/responsive/responsive_extension.dart';
 import '../../../../../core/theme/app_color.dart';
 
 class CustomContainerModalSheet extends StatefulWidget {
-  final TextEditingController titleController ;
-  final TextEditingController descriptionController ;
-  final TextEditingController deadLineController ;
-  final TextEditingController addImageController ;
+  final TextEditingController titleController;
+  final TextEditingController descriptionController;
+  final TextEditingController deadLineController;
+  final TextEditingController addImageController;
   final File? pickedImage;
 
-   CustomContainerModalSheet({super.key,
-     required this.titleController,
-     required this.descriptionController,
-     required this.deadLineController,
-     required this.addImageController,
-     this.pickedImage,
-
-     });
+  CustomContainerModalSheet({
+    super.key,
+    required this.titleController,
+    required this.descriptionController,
+    required this.deadLineController,
+    required this.addImageController,
+    this.pickedImage,
+  });
 
   @override
-  State<CustomContainerModalSheet> createState() => _CustomContainerModalSheetState();
+  State<CustomContainerModalSheet> createState() =>
+      _CustomContainerModalSheetState();
 }
 
 class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
@@ -46,12 +47,12 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
     return Container(
       height: 850.h,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.sp),
-          color: AppColor.kPurple1
+        borderRadius: BorderRadius.circular(30.sp),
+        color: AppColor.kPurple1,
       ),
       child: Center(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(
             children: [
               Padding(
@@ -61,16 +62,26 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                   width: 100.w,
                   decoration: BoxDecoration(
                     color: AppColor.kWhite,
-                    borderRadius: BorderRadius.circular(30.sp)
+                    borderRadius: BorderRadius.circular(30.sp),
                   ),
                 ),
               ),
               ///////////title////////////////
-              CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: widget.titleController,),
-              SizedBox(height: 20.h,),
+              CustomModalTextFormField(
+                title: "title".tr(),
+                maxLines: 1,
+                textIconBorder: AppColor.kWhite,
+                controller: widget.titleController,
+              ),
+              SizedBox(height: 20.h),
               ///////////description////////////////
-              CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller:  widget.descriptionController,),
-              SizedBox(height: 20.h,),
+              CustomModalTextFormField(
+                title: "description".tr(),
+                maxLines: 15,
+                textIconBorder: AppColor.kWhite,
+                controller: widget.descriptionController,
+              ),
+              SizedBox(height: 20.h),
               ///////////deadLine////////////////
               CustomModalTextFormField(
                 onTap: () async {
@@ -86,47 +97,79 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
                     });
                   }
                 },
-                title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,prefixIcon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  widget.deadLineController,),
-              SizedBox(height: 20.h,),
+                title: "deadline(Optional)".tr(),
+                readOnly: true,
+                maxLines: 1,
+                textIconBorder: AppColor.lightPink,
+                prefixIcon: Icon(
+                  Icons.calendar_today_outlined,
+                  color: AppColor.lightPink,
+                ),
+                controller: widget.deadLineController,
+              ),
+              SizedBox(height: 20.h),
               ///////////pickedImage////////////////
-              CustomModalTextFormField(onTap:()async{
-                var imagePicker = ImagePicker();
-                var image = await imagePicker.pickImage(source: ImageSource.gallery);
-                if(image !=null){
-                   pickedImage=File(image.path);
-                  setState(() {
-                    ///show image name
-                    widget.addImageController.text=image.name.toString();
-                  });
-                }
-              }
-                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,
+              CustomModalTextFormField(
+                onTap: () async {
+                  var imagePicker = ImagePicker();
+                  var image = await imagePicker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+                  if (image != null) {
+                    pickedImage = File(image.path);
+                    setState(() {
+                      ///show image name
+                      widget.addImageController.text = image.name.toString();
+                    });
+                  }
+                },
+                title: "addImage(Optional)".tr(),
+                maxLines: 1,
+                readOnly: true,
+                textIconBorder: AppColor.lightPink,
                 prefixIcon: pickedImage != null
                     ? Padding(
-                      padding:  EdgeInsets.only(top:2.sp,left: 5.sp),
-                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.file(
-                      pickedImage!,
-                      width: 30.w,
-                      height: 30.h,
-                      fit: BoxFit.cover,
-                                        ),
-                                      ),
-                    )
+                        padding: EdgeInsets.only(top: 2.sp, left: 5.sp),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            pickedImage!,
+                            width: 30.w,
+                            height: 30.h,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
                     : Icon(Icons.image_outlined, color: AppColor.lightPink),
-                suffixIcon: pickedImage!=null?IconButton(
-                    onPressed: (){setState(() {
-                      pickedImage=null;
-                      widget.addImageController.clear();
-                    });}, icon: Icon(Icons.close,color: AppColor.kRed,)):null,
-                controller: widget.addImageController),
-              SizedBox(height: 20.h,),
-              CustomButtonModalSheet(press: (){
-                context.read<HomeCubit>().createTodo(TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,image:pickedImage));
-                Navigator.of(context).pop();
-              }, text: "addToDo".tr()),
-              SizedBox(height: 20.h,)
+                suffixIcon: pickedImage != null
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            pickedImage = null;
+                            widget.addImageController.clear();
+                          });
+                        },
+                        icon: Icon(Icons.close, color: AppColor.kRed),
+                      )
+                    : null,
+                controller: widget.addImageController,
+              ),
+              SizedBox(height: 20.h),
+              CustomButtonModalSheet(
+                press: () {
+                  context.read<HomeCubit>().createTodo(
+                    TodoParam(
+                      title: widget.titleController.text,
+                      des: widget.descriptionController.text,
+                      deadline: widget.deadLineController.text,
+                      image: pickedImage,
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                },
+                text: "addToDo".tr(),
+              ),
+              SizedBox(height: 20.h),
             ],
           ),
         ),
@@ -134,9 +177,6 @@ class _CustomContainerModalSheetState extends State<CustomContainerModalSheet> {
     );
   }
 }
-
-
-
 
 ///////////////////////////////////////////////
 /*import 'dart:io';

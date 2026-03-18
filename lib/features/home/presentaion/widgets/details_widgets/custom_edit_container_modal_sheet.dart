@@ -58,10 +58,13 @@ class _CustomEditContainerModalSheetState extends State<CustomEditContainerModal
                   ),
                 ),
               ),
+              ///////////title////////////////
               CustomModalTextFormField(title: "title".tr(),maxLines: 1,textIconBorder: AppColor.kWhite,controller: widget.titleController,),
               SizedBox(height: 20.h,),
+              ///////////description////////////////
               CustomModalTextFormField(title: "description".tr(),maxLines: 15,textIconBorder: AppColor.kWhite,controller:  widget.descriptionController,),
               SizedBox(height: 20.h,),
+              ///////////deadLine////////////////
               CustomModalTextFormField(
                 onTap: () async {
                   var picked = await showDatePicker(
@@ -73,22 +76,50 @@ class _CustomEditContainerModalSheetState extends State<CustomEditContainerModal
                     var formatted = DateFormat('dd MMMM yyyy').format(picked);
                     setState(() {
                       widget.deadLineController.text = formatted;
-                      //print(widget.deadLineController.text);
                     });
                   }
                 },
                 title: "deadline(Optional)".tr(),readOnly:true,maxLines: 1,textIconBorder: AppColor.lightPink,icon: Icon(Icons.calendar_today_outlined,color:AppColor.lightPink,),controller:  widget.deadLineController,),
               SizedBox(height: 20.h,),
+              ///////////pickedImage////////////////
               CustomModalTextFormField(onTap:()async{
                 var imagePicker = ImagePicker();
                 var image = await imagePicker.pickImage(source: ImageSource.gallery);
                 if(image !=null){
                   pickedImage=File(image.path);
                   setState(() {
+                    ///show image name
+                    widget.addImageController.text = image.name.toString();
                   });
                 }
               }
-                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,icon: Icon(Icons.image_outlined,color:AppColor.lightPink),controller:  widget.addImageController,),
+                ,title: "addImage(Optional)".tr(),maxLines: 1,readOnly:true,textIconBorder: AppColor.lightPink,
+                prefixIcon: pickedImage != null
+                    ? Padding(
+                  padding: EdgeInsets.only(top: 2.sp, left: 5.sp),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.file(
+                      pickedImage!,
+                      width: 30.w,
+                      height: 30.h,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+                    : Icon(Icons.image_outlined, color: AppColor.lightPink),
+                suffixIcon: pickedImage != null
+                    ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      pickedImage = null;
+                      widget.addImageController.clear();
+                    });
+                  },
+                  icon: Icon(Icons.close, color: AppColor.kRed),
+                )
+                    : null,
+                controller:  widget.addImageController,),
               SizedBox(height: 20.h,),
               CustomButtonModalSheet(press: ()async{
                 await context.read<HomeCubit>().editTodo(widget.todo.id, TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,image:pickedImage));
