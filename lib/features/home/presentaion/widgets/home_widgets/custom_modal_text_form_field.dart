@@ -12,12 +12,16 @@ class CustomModalTextFormField extends StatelessWidget {
     required this.textIconBorder,
     this.readOnly=false,
     required this.controller,
-    this.onTap
+    this.onTap,
+    this.prefixIcon,
+    this.suffixIcon
 
   });
 
   final String title;
-  final Icon? icon;
+  final Widget? icon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final int maxLines;
   final Color textIconBorder;
   final bool readOnly;
@@ -52,7 +56,8 @@ class CustomModalTextFormField extends StatelessWidget {
                 color: textIconBorder
             )
         ),
-        suffixIcon: icon
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon??icon,
       ),
     );
   }
