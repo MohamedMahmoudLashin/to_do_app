@@ -124,7 +124,8 @@ class _CustomEditContainerModalSheetState extends State<CustomEditContainerModal
               CustomButtonModalSheet(press: ()async{
                 await context.read<HomeCubit>().editTodo(widget.todo.id, TodoParam(title: widget.titleController.text , des: widget.descriptionController.text,deadline: widget.deadLineController.text,image:pickedImage));
                 await context.read<HomeCubit>().getTodo();
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(
+                    widget.todo.id);
               }, text: "edittodo".tr())
             ],
           ),

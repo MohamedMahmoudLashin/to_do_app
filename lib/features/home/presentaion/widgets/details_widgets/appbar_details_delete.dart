@@ -7,6 +7,7 @@ import 'package:to_do_app/core/theme/app_color.dart';
 import 'package:to_do_app/features/home/presentaion/widgets/details_widgets/custom_edit_container_modal_sheet.dart';
 import '../../../data/models/todo_model.dart';
 import '../../home_cubit/home_cubit.dart';
+import '../../ui_screens/detail_todo.dart';
 
 class AppbarDetailsDelete extends StatelessWidget
     implements PreferredSizeWidget {
@@ -47,7 +48,7 @@ class AppbarDetailsDelete extends StatelessWidget
                   addImageController: imageController,);
                 }).
             then((value) {
-              context.read<HomeCubit>().getTodo();
+               context.read<HomeCubit>().getTodo();
             },);
                 },
           child: SvgPicture.asset("assets/edit-2.svg"),
