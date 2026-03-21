@@ -35,7 +35,7 @@ class _DetailTodoState extends State<DetailTodo> {
 
             crossAxisAlignment: .stretch,
             children: [
-              CustomTextTitleDetails(title:widget.todo.title),
+              CustomTextTitleDetails(title:widget.todo.title,),
               SizedBox(height: 19.h,),
               CustomTextDetails(title: widget.todo.des)
             ],
