@@ -33,6 +33,14 @@ class CustomEditContainerModalSheet extends StatefulWidget {
 }
 
 class _CustomEditContainerModalSheetState extends State<CustomEditContainerModalSheet> {
+  @override
+  void dispose() {
+    widget.titleController.dispose();
+    widget.descriptionController.dispose();
+    widget.deadLineController.dispose();
+    widget.addImageController.dispose();
+    super.dispose();
+  }
   File? pickedImage;
   @override
   Widget build(BuildContext context) {
