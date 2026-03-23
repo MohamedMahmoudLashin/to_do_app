@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/core/theme/app_color.dart';
@@ -23,36 +25,54 @@ class _DetailTodoState extends State<DetailTodo> {
   void initState() {
     context.read<HomeCubit>().getTodo();
   }
+  ///stream
+  var user = FirebaseAuth.instance.currentUser;
+  Stream <DocumentSnapshot<Map<String, dynamic>>> stream (){
+    return FirebaseFirestore.instance.collection(user!.uid).doc(widget.todo.id).snapshots();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.kWhite,
-      appBar: AppbarDetailsDelete(todo: widget.todo,),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical:27.h,horizontal: 27.w),
-          child: Column(
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: stream(),
+      builder: (context, asyncSnapshot) {
+        if (asyncSnapshot.hasData){
+          print("+++++++++++++++++++++++++++++++++++++${asyncSnapshot.data?.data()}");
+          var data = TodoModel.fromJson((asyncSnapshot.data?.data() as Map<String,dynamic>), widget.todo.id);
 
-            crossAxisAlignment: .stretch,
-            children: [
-              CustomTextTitleDetails(title:widget.todo.title,),
-              SizedBox(height: 19.h,),
-              CustomTextDetails(title: widget.todo.des)
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        child: Row(
-          mainAxisAlignment: .center,
-          children: [
-            Padding(
-              padding:  EdgeInsets.only(bottom:40.h),
-              child: CustomTextDetails(title: "${"createdat".tr()} ${widget.todo.deadline}")
+          return Scaffold(
+            backgroundColor: AppColor.kWhite,
+            appBar: AppbarDetailsDelete(todo: widget.todo,),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical:27.h,horizontal: 27.w),
+                child: Column(
+
+                  crossAxisAlignment: .stretch,
+                  children: [
+                    CustomTextTitleDetails(title:data.title,),
+                    SizedBox(height: 19.h,),
+                    CustomTextDetails(title: data.des)
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
+            bottomNavigationBar: Container(
+              child: Row(
+                mainAxisAlignment: .center,
+                children: [
+                  Padding(
+                      padding:  EdgeInsets.only(bottom:40.h),
+                      child: CustomTextDetails(title: "${"createdat".tr()} ${widget.todo.deadline}")
+                  ),
+                ],
+              ),
+            ),
+          );
+
+        }else{
+          return Container();
+        }
+      }
     );
   }
 }
